@@ -1,0 +1,347 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MartinTech | Elite Digital Service</title>
+    <style>
+        :root {
+            --neon: #ccff00; /* Verde flúor exacto */
+            --glass: rgba(255, 255, 255, 0.05);
+            --bg-gradient: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #050505 100%);
+            --whatsapp: #25d366;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: white;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- SIDEBAR IZQUIERDA --- */
+        nav {
+            width: 260px;
+            background: rgba(0, 0, 0, 0.9);
+            border-right: 1px solid var(--neon);
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+
+        .logo-nav {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--neon);
+            text-align: center;
+            letter-spacing: 3px;
+            margin-bottom: 50px;
+            text-shadow: 0 0 10px var(--neon);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: #888;
+            padding: 15px;
+            margin-bottom: 10px;
+            text-align: left;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            border-radius: 8px;
+            text-transform: uppercase;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            color: var(--neon);
+            border-color: var(--neon);
+            background: rgba(204, 255, 0, 0.05);
+            box-shadow: 0 0 15px rgba(204, 255, 0, 0.1);
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        main {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .subpagina {
+            display: none;
+            width: 100%;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .subpagina.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- SECCIÓN INICIO CENTRADA --- */
+        .inicio-central {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            text-align: center;
+        }
+
+        .logo-caida-central h1 {
+            font-size: 6rem;
+            font-weight: 900;
+            color: var(--neon);
+            text-shadow: 0 0 30px var(--neon);
+            margin: 0 0 30px 0;
+            animation: caerCentro 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes caerCentro {
+            0% { transform: translateY(-400px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .quienes-somos-central {
+            background: var(--glass);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(204, 255, 0, 0.2);
+            backdrop-filter: blur(15px);
+            max-width: 750px;
+            line-height: 1.8;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            opacity: 0;
+            animation: aparecerSuave 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes aparecerSuave {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- GRID DE PRODUCTOS --- */
+        .grid-servicios {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .item-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            transition: 0.4s;
+            text-align: center;
+        }
+
+        .item-card:hover {
+            border-color: var(--neon);
+            box-shadow: 0 0 30px rgba(204, 255, 0, 0.2);
+            transform: translateY(-8px);
+        }
+
+        .item-card h3 { color: var(--neon); margin: 0 0 10px 0; text-transform: uppercase; }
+        .price { font-size: 1.4rem; font-weight: bold; color: #00ff41; margin: 15px 0; }
+
+        .btn-accion {
+            width: 100%;
+            background: var(--neon);
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            color: black;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-accion:hover {
+            background: white;
+            box-shadow: 0 0 20px white;
+        }
+
+        /* --- BOTÓN FLOTANTE WHATSAPP --- */
+        .btn-whatsapp {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--whatsapp);
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            z-index: 100;
+            transition: 0.3s;
+            font-size: 30px;
+        }
+
+        .btn-whatsapp:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px var(--whatsapp);
+        }
+
+        /* Pequeño tooltip del botón */
+        .btn-whatsapp::before {
+            content: 'Pedir por WhatsApp';
+            position: absolute;
+            right: 80px;
+            background: #222;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 14px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: 0.3s;
+            pointer-events: none;
+        }
+
+        .btn-whatsapp:hover::before {
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/1169689385?text=Hola%20MartinTech!%20Quería%20hacerte%20una%20consulta." class="btn-whatsapp" target="_blank">
+        <svg viewBox="0 0 24 24" width="35" height="35" fill="currentColor">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.941-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.006.332.009c.109.004.253-.041.397.303.144.344.491 1.199.534 1.286.044.087.073.188.014.303-.058.116-.087.188-.173.289l-.26.303c-.087.101-.177.211-.077.385.101.173.448.74.962 1.199.66.588 1.216.769 1.389.855.173.087.274.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.419-.101.824z"/>
+        </svg>
+    </a>
+
+    <nav>
+        <div class="logo-nav">MARTINTECH</div>
+        <button class="nav-btn active" onclick="ver('inicio')">🏠 Inicio</button>
+        <button class="nav-btn" onclick="ver('juegos')">🎮 Juegos</button>
+        <button class="nav-btn" onclick="ver('software')">💾 Software</button>
+        <button class="nav-btn" onclick="ver('tv')">📺 TV & Fútbol</button>
+        <button class="nav-btn" onclick="ver('hardware')">🛠️ Hardware</button>
+    </nav>
+
+    <main>
+        <div id="inicio" class="subpagina active">
+            <div class="inicio-central">
+                <div class="logo-caida-central">
+                    <h1>MARTINTECH</h1>
+                </div>
+                <div class="quienes-somos-central">
+                    <h2 style="color: var(--neon); margin-top: 0; letter-spacing: 2px;">¿QUIÉNES SOMOS?</h2>
+                    <p>Fundada en Enero de 2026, <b>MartinTech</b> nació de la pasión por la informática y el deseo de ofrecer un servicio técnico que realmente vuele.</p>
+                    <p>Nos especializamos en la atención al cliente, optimizar sistemas operativos (desde el clásico XP hasta Win 11) y potenciar el hardware para gamers exigentes.</p>
+                    <p>Acá no solo arreglamos, creamos experiencias digitales para que disfrutes de tus juegos y servicios al máximo.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="juegos" class="subpagina">
+            <h1 style="border-bottom: 2px solid var(--neon); padding-bottom: 10px;">🎮 Catálogo de Juegos</h1>
+            <div class="grid-servicios">
+                <div class="item-card">
+                    <h3>GTA 5</h3>
+                    <p>Instalación y optimización completa.</p>
+                    <div class="price">ARS 6.500,00</div>
+                    <a href="https://wa.me/1169689385?text=Hola!%20Quiero%20instalar%20el%20GTA%205" class="btn-accion">Pedir Ahora</a>
+                </div>
+                <div class="item-card">
+                    <h3>PES 6</h3>
+                    <p>Optimizado con plantillas actuales.</p>
+                    <div class="price">ARS 3.000,00</div>
+                    <a href="https://wa.me/1169689385?text=Hola!%20Quiero%20el%20PES%206" class="btn-accion">Pedir Ahora</a>
+                </div>
+                <div class="item-card">
+                    <h3>Minecraft Java</h3>
+                    <p>Instalación PC con soporte para mods.</p>
+                    <div class="price">ARS 4.000,00</div>
+                    <a href="https://wa.me/1169689385?text=Hola!%20Quiero%20el%20Minecraft" class="btn-accion">Pedir Ahora</a>
+                </div>
+                <div class="item-card">
+                    <h3>Counter Strike 1.6</h3>
+                    <p>Listo para jugar online.</p>
+                    <div class="price">ARS 4.500,00</div>
+                    <a href="https://wa.me/1169689385?text=Hola!%20Quiero%20el%20CS%201.6" class="btn-accion">Pedir Ahora</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="software" class="subpagina">
+            <h1 style="border-bottom: 2px solid var(--neon); padding-bottom: 10px;">💾 Software & Sistemas</h1>
+            <div class="grid-servicios">
+                <div class="item-card">
+                    <h3>Activación Windows</h3>
+                    <p>Licencia permanente Win 10 y 11.</p>
+                    <div class="price">ARS 5.000,00</div>
+                    <a href="https://wa.me/1169689385?text=Hola!%20Necesito%20activar%20Windows" class="btn-accion">Activar</a>
+                </div>
+                <div class="item-card">
+                    <h3>Pack Office</h3>
+                    <p>Instalación completa (Word, Excel, etc).</p>
+                    <div class="price">ARS 5.000,00</div>
+                    <a href="https://wa.me/1169689385?text=Hola!%20Necesito%20el%20Pack%20Office" class="btn-accion">Instalar</a>
+                </div>
+                <div class="item-card">
+                    <h3>Limpieza de Sistema</h3>
+                    <p>Optimización profunda de software.</p>
+                    <div class="price">ARS 4.500,00</div>
+                    <a href="https://wa.me/1169689385?text=Hola!%20Quiero%20limpiar%20mi%20PC" class="btn-accion">Pedir Turno</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="tv" class="subpagina">
+            <h1 style="border-bottom: 2px solid var(--neon); padding-bottom: 10px;">📺 Entretenimiento</h1>
+            <div class="grid-servicios">
+                <div class="item-card">
+                    <h3>Pack Fútbol + TV</h3>
+                    <p>Todos los partidos y canales Premium.</p>
+                    <a href="https://wa.me/1169689385?text=Hola!%20Info%20sobre%20el%20Pack%20Futbol" class="btn-accion">Consultar</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="hardware" class="subpagina">
+            <h1 style="border-bottom: 2px solid var(--neon); padding-bottom: 10px;">🛠️ Servicio de Hardware</h1>
+            <div class="grid-servicios">
+                <div class="item-card">
+                    <h3>Limpieza Física</h3>
+                    <p>Cambio de pasta térmica y sopleteo.</p>
+                    <a href="https://wa.me/1169689385?text=Hola!%20Presupuesto%20por%20limpieza%20fisica" class="btn-accion">Presupuesto</a>
+                </div>
+                   
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function ver(id) {
+            document.querySelectorAll('.subpagina').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
