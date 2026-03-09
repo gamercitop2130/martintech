@@ -22,7 +22,7 @@
             overflow: hidden;
         }
 
-        /* --- SIDEBAR IZQUIERDA (ESCRITORIO) --- */
+        /* --- SIDEBAR IZQUIERDA --- */
         nav {
             width: 260px;
             background: rgba(0, 0, 0, 0.9);
@@ -32,7 +32,6 @@
             padding: 30px;
             box-shadow: 10px 0 30px rgba(0,0,0,0.5);
             z-index: 10;
-            transition: 0.3s;
         }
 
         .logo-nav {
@@ -91,7 +90,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- SECCIÓN INICIO CENTRADA --- */
+        /* --- SECCIÓN INICIO --- */
         .inicio-central {
             display: flex;
             flex-direction: column;
@@ -157,8 +156,15 @@
             transform: translateY(-8px);
         }
 
+        .item-card img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
         .item-card h3 { color: var(--neon); margin: 0 0 10px 0; text-transform: uppercase; }
-        .price { font-size: 1.4rem; font-weight: bold; color: #00ff41; margin: 15px 0; }
+        .price { font-size: 1.2rem; font-weight: bold; color: #00ff41; margin: 15px 0; }
 
         .btn-accion {
             width: 100%;
@@ -175,7 +181,12 @@
             display: inline-block;
         }
 
-        /* --- BOTÓN WHATSAPP --- */
+        .btn-accion:hover {
+            background: white;
+            box-shadow: 0 0 20px white;
+        }
+
+        /* --- BOTÓN FLOTANTE WHATSAPP --- */
         .btn-whatsapp {
             position: fixed;
             bottom: 30px;
@@ -193,44 +204,23 @@
             z-index: 100;
             transition: 0.3s;
         }
-
-        /* --- AJUSTES PARA CELULARES (RESPONSIVE) --- */
-        @media (max-width: 768px) {
-            body { flex-direction: column; overflow-y: auto; }
-            nav {
-                width: 100%;
-                height: auto;
-                padding: 10px 0;
-                flex-direction: row;
-                justify-content: space-around;
-                position: sticky;
-                top: 0;
-                border-right: none;
-                border-bottom: 1px solid var(--neon);
-            }
-            .logo-nav { display: none; }
-            .nav-btn { font-size: 0.65rem; padding: 10px 5px; margin-bottom: 0; }
-            main { padding: 20px; }
-            .logo-caida-central h1 { font-size: 3.5rem; }
-            .quienes-somos-central { padding: 20px; font-size: 0.9rem; }
-            .grid-servicios { grid-template-columns: 1fr; }
-            .btn-whatsapp { width: 55px; height: 55px; bottom: 20px; right: 20px; }
-        }
     </style>
 </head>
 <body>
 
     <a href="https://wa.me/1169689385?text=Hola%20MartinTech!%20Quería%20hacerte%20una%20consulta." class="btn-whatsapp" target="_blank">
-        <svg viewBox="0 0 24 24" width="35" height="35" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.941-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.006.332.009c.109.004.253-.041.397.303.144.344.491 1.199.534 1.286.044.087.073.188.014.303-.058.116-.087.188-.173.289l-.26.303c-.087.101-.177.211-.077.385.101.173.448.74.962 1.199.66.588 1.216.769 1.389.855.173.087.274.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.419-.101.824z"/></svg>
+        <svg viewBox="0 0 24 24" width="35" height="35" fill="currentColor">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.941-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.006.332.009c.109.004.253-.041.397.303.144.344.491 1.199.534 1.286.044.087.073.188.014.303-.058.116-.087.188-.173.289l-.26.303c-.087.101-.177.211-.077.385.101.173.448.74.962 1.199.66.588 1.216.769 1.389.855.173.087.274.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.419-.101.824z"/>
+        </svg>
     </a>
 
     <nav>
         <div class="logo-nav">MARTINTECH</div>
-        <button class="nav-btn active" onclick="ver('inicio', event)">🏠 Inicio</button>
-        <button class="nav-btn" onclick="ver('juegos', event)">🎮 Juegos</button>
-        <button class="nav-btn" onclick="ver('software', event)">💾 Software</button>
-        <button class="nav-btn" onclick="ver('tv', event)">📺 TV & Fútbol</button>
-        <button class="nav-btn" onclick="ver('hardware', event)">🛠️ Hardware</button>
+        <button class="nav-btn active" onclick="ver('inicio')">🏠 Inicio</button>
+        <button class="nav-btn" onclick="ver('juegos')">🎮 Juegos</button>
+        <button class="nav-btn" onclick="ver('software')">💾 Software</button>
+        <button class="nav-btn" onclick="ver('remoto')">🔧 Remoto</button>
+        <button class="nav-btn" onclick="ver('hardware')">🛠️ Hardware</button>
     </nav>
 
     <main>
@@ -238,46 +228,48 @@
             <div class="inicio-central">
                 <div class="logo-caida-central"><h1>MARTINTECH</h1></div>
                 <div class="quienes-somos-central">
-                    <h2 style="color: var(--neon); margin-top: 0;">¿QUIÉNES SOMOS?</h2>
-                    <p>Fundada en Enero de 2026, <b>MartinTech</b> nació de la pasión por la informática y el deseo de ofrecer un servicio técnico que realmente vuele.</p>
-                    <p>Nos especializamos en la atención al cliente, optimizar sistemas operativos (desde el clásico XP hasta Win 11) y potenciar el hardware para gamers exigentes.</p>
-                    <p>Acá no solo arreglamos, creamos experiencias digitales para que disfrutes de tus juegos y servicios al máximo.</p>
+                    <h2 style="color: var(--neon);">¿QUIÉNES SOMOS?</h2>
+                    <p>En **MartinTech**, fundado en 2026, nos dedicamos a que tu hardware y software vuelen.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="remoto" class="subpagina">
+            <h1 style="border-bottom: 2px solid var(--neon); padding-bottom: 10px;">🔧 Soporte Remoto</h1>
+            <p>Descargá estas apps para que pueda entrar a tu PC y arreglar el quilombito.</p>
+            <div class="grid-servicios">
+                <div class="item-card">
+                    <img src="anydesk.png" alt="AnyDesk">
+                    <h3>AnyDesk</h3>
+                    <p>Bajalo para soporte remoto inmediato.</p>
+                    <div class="price">GRATUITO</div>
+                    <a href="https://download.anydesk.com/AnyDesk.exe" class="btn-accion">Descargar EXE</a>
+                </div>
+                <div class="item-card">
+                    <img src="winrar.png" alt="WinRAR">
+                    <h3>WinRAR</h3>
+                    <p>Para abrir los archivos que te mande.</p>
+                    <div class="price">GRATUITO</div>
+                    <a href="https://dw.uptodown.net/dwn/Vvj3PGkn-dHQ8TbdOdQ3vah2hKt8rLSiXpt7z2f1QIkCYpD8aaV5qrTnc_RtgpknPedCESrEtFGAIYm5CYW-XfJQY50zcFy6uMW_OtAWSrFoJhvw7PuY13fB9SBf9CMQ/S_l-s6tXklk6uGf3nUBn1iqNIQQILRSg9tzN9ghwi346Ud8Dwt_uXkBno-wlG7QOc1la-Yl3CALQRfYqjBylFjR1WC9gQXadcGwCedMobuZNdsspeRKNFsfyGS70DNI5/hlgODoFcB8WCE6j7xIoQQkkRoq3PbUxmURBKnUC_3jRFJZ1eTtOMH_8Ye1HOaQtG/winrar-7-20-0.exe" class="btn-accion">Descargar EXE</a>
                 </div>
             </div>
         </div>
 
         <div id="juegos" class="subpagina">
-            <h1 style="border-bottom: 2px solid var(--neon);">🎮 Catálogo de Juegos</h1>
+            <h1>🎮 Catálogo de Juegos</h1>
             <div class="grid-servicios">
-                <div class="item-card"><h3>GTA 5</h3><div class="price">ARS 6.500,00</div><a href="https://wa.me/1169689385?text=Hola!%20Quiero%20el%20GTA%205" class="btn-accion">Pedir</a></div>
-                <div class="item-card"><h3>PES 6</h3><div class="price">ARS 3.000,00</div><a href="https://wa.me/1169689385?text=Hola!%20Quiero%20el%20PES%206" class="btn-accion">Pedir</a></div>
-            </div>
-        </div>
-
-        <div id="software" class="subpagina">
-            <h1 style="border-bottom: 2px solid var(--neon);">💾 Software</h1>
-            <div class="grid-servicios">
-                <div class="item-card"><h3>Activación Windows</h3><div class="price">ARS 5.000,00</div><a href="https://wa.me/1169689385?text=Hola!%20Info%20activacion%20Windows" class="btn-accion">Consultar</a></div>
-            </div>
-        </div>
-
-        <div id="tv" class="subpagina">
-            <h1 style="border-bottom: 2px solid var(--neon);">📺 TV & Fútbol</h1>
-            <div class="grid-servicios">
-                <div class="item-card"><h3>Pack Fútbol</h3><p>Canales Premium en vivo.</p><a href="https://wa.me/1169689385?text=Hola!%20Info%20Pack%20Futbol" class="btn-accion">Pedir Info</a></div>
-            </div>
-        </div>
-
-        <div id="hardware" class="subpagina">
-            <h1 style="border-bottom: 2px solid var(--neon);">🛠️ Hardware</h1>
-            <div class="grid-servicios">
-                <div class="item-card"><h3>Limpieza Física</h3><p>Pasta térmica y sopleteo.</p><a href="https://wa.me/1169689385?text=Hola!%20Presupuesto%20limpieza" class="btn-accion">Presupuesto</a></div>
+                <div class="item-card">
+                    <h3>GTA 5</h3>
+                    <p>Instalación y optimización profunda.</p>
+                    <div class="price">ARS 6.500,00</div>
+                    <a href="https://wa.me/1169689385?text=Hola!%20Quiero%20el%20GTA%205" class="btn-accion">Pedir Ahora</a>
+                </div>
             </div>
         </div>
     </main>
 
     <script>
-        function ver(id, event) {
+        function ver(id) {
             document.querySelectorAll('.subpagina').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(id).classList.add('active');
