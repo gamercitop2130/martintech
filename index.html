@@ -6,7 +6,7 @@
     <title>MartinTech | Elite Digital Service</title>
     <style>
         :root {
-            --neon: #ccff00; /* Verde flúor exacto */
+            --neon: #ccff00;
             --glass: rgba(255, 255, 255, 0.05);
             --bg-gradient: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #050505 100%);
             --whatsapp: #25d366;
@@ -15,14 +15,14 @@
         body {
             background: var(--bg-gradient);
             color: white;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             margin: 0;
             display: flex;
             height: 100vh;
             overflow: hidden;
         }
 
-        /* --- SIDEBAR IZQUIERDA --- */
+        /* --- SIDEBAR --- */
         nav {
             width: 260px;
             background: rgba(0, 0, 0, 0.9);
@@ -30,7 +30,6 @@
             display: flex;
             flex-direction: column;
             padding: 30px;
-            box-shadow: 10px 0 30px rgba(0,0,0,0.5);
             z-index: 10;
         }
 
@@ -62,35 +61,24 @@
             color: var(--neon);
             border-color: var(--neon);
             background: rgba(204, 255, 0, 0.05);
-            box-shadow: 0 0 15px rgba(204, 255, 0, 0.1);
         }
 
-        /* --- CONTENEDOR PRINCIPAL --- */
+        /* --- CONTENIDO --- */
         main {
             flex-grow: 1;
             padding: 40px;
             overflow-y: auto;
-            position: relative;
-            display: flex;
-            flex-direction: column;
         }
 
         .subpagina {
             display: none;
-            width: 100%;
-            animation: fadeIn 0.6s ease forwards;
         }
 
         .subpagina.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- SECCIÓN INICIO --- */
+        /* --- ANIMACIÓN DE INICIO (CAÍDA) --- */
         .inicio-central {
             display: flex;
             flex-direction: column;
@@ -105,7 +93,7 @@
             font-weight: 900;
             color: var(--neon);
             text-shadow: 0 0 30px var(--neon);
-            margin: 0 0 30px 0;
+            margin: 0;
             animation: caerCentro 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
@@ -114,104 +102,72 @@
             100% { transform: translateY(0); opacity: 1; }
         }
 
-        .quienes-somos-central {
-            background: var(--glass);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid rgba(204, 255, 0, 0.2);
-            backdrop-filter: blur(15px);
-            max-width: 750px;
-            line-height: 1.8;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-            opacity: 0;
-            animation: aparecerSuave 1s ease-out 0.5s forwards;
-        }
-
-        @keyframes aparecerSuave {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- GRID DE PRODUCTOS --- */
+        /* --- CARDS Y BOTONES --- */
         .grid-servicios {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
 
         .item-card {
             background: var(--glass);
-            backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.1);
-            padding: 30px;
+            padding: 20px;
             border-radius: 15px;
-            transition: 0.4s;
             text-align: center;
-        }
-
-        .item-card:hover {
-            border-color: var(--neon);
-            box-shadow: 0 0 30px rgba(204, 255, 0, 0.2);
-            transform: translateY(-8px);
+            transition: 0.3s;
         }
 
         .item-card img {
-            width: 100px;
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
-
-        .item-card h3 { color: var(--neon); margin: 0 0 10px 0; text-transform: uppercase; }
-        .price { font-size: 1.2rem; font-weight: bold; color: #00ff41; margin: 15px 0; }
-
-        .btn-accion {
             width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .btn-consultar {
+            display: block;
             background: var(--neon);
-            border: none;
-            padding: 12px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
             color: black;
+            padding: 12px;
             text-decoration: none;
-            display: inline-block;
+            border-radius: 8px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-top: 15px;
+            animation: pulso 2s infinite;
+            transition: 0.3s;
         }
 
-        .btn-accion:hover {
-            background: white;
-            box-shadow: 0 0 20px white;
+        @keyframes pulso {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(204, 255, 0, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 20px 5px rgba(204, 255, 0, 0.4); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(204, 255, 0, 0); }
         }
 
-        /* --- BOTÓN FLOTANTE WHATSAPP --- */
+        /* --- WHATSAPP --- */
         .btn-whatsapp {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background-color: var(--whatsapp);
+            background: var(--whatsapp);
             color: white;
-            width: 65px;
-            height: 65px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-decoration: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             z-index: 100;
-            transition: 0.3s;
         }
     </style>
 </head>
 <body>
 
-    <a href="https://wa.me/1169689385?text=Hola%20MartinTech!%20Quería%20hacerte%20una%20consulta." class="btn-whatsapp" target="_blank">
-        <svg viewBox="0 0 24 24" width="35" height="35" fill="currentColor">
-            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.941-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.006.332.009c.109.004.253-.041.397.303.144.344.491 1.199.534 1.286.044.087.073.188.014.303-.058.116-.087.188-.173.289l-.26.303c-.087.101-.177.211-.077.385.101.173.448.74.962 1.199.66.588 1.216.769 1.389.855.173.087.274.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.419-.101.824z"/>
-        </svg>
+    <a href="https://wa.me/1169689385" class="btn-whatsapp" target="_blank">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.941-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.006.332.009c.109.004.253-.041.397.303.144.344.491 1.199.534 1.286.044.087.073.188.014.303-.058.116-.087.188-.173.289l-.26.303c-.087.101-.177.211-.077.385.101.173.448.74.962 1.199.66.588 1.216.769 1.389.855.173.087.274.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.419-.101.824z"/></svg>
     </a>
 
     <nav>
@@ -226,42 +182,62 @@
         <div id="inicio" class="subpagina active">
             <div class="inicio-central">
                 <div class="logo-caida-central"><h1>MARTINTECH</h1></div>
-                <div class="quienes-somos-central">
-                    <h2 style="color: var(--neon);">¿QUIÉNES SOMOS?</h2>
-                    <p>En **MartinTech**, fundado en 2026, nos dedicamos a que tu hardware y software vuelen.</p>
+                <p>Expertos en Optimización Digital</p>
+            </div>
+        </div>
+
+        <div id="juegos" class="subpagina">
+            <h1>🎮 Juegos Optimizados</h1>
+            <div class="grid-servicios">
+                <div class="item-card">
+                    <img src="gta v.jpg" alt="GTA 5">
+                    <h3>GTA 5</h3>
+                    <a href="https://wa.me/1169689385?text=Consulta%20por%20GTA%205" class="btn-consultar">Consultar</a>
+                </div>
+                <div class="item-card">
+                    <img src="minecraf.jpg" alt="Minecraft">
+                    <h3>Minecraft Java</h3>
+                    <a href="https://wa.me/1169689385?text=Consulta%20por%20Minecraft" class="btn-consultar">Consultar</a>
+                </div>
+                <div class="item-card">
+                    <img src="pes 6.jpg" alt="PES 6">
+                    <h3>PES 6</h3>
+                    <a href="https://wa.me/1169689385?text=Consulta%20por%20PES%206" class="btn-consultar">Consultar</a>
+                </div>
+                <div class="item-card">
+                    <img src="counter 1.6.jpg" alt="CS 1.6">
+                    <h3>CS 1.6</h3>
+                    <a href="https://wa.me/1169689385?text=Consulta%20por%20CS%201.6" class="btn-consultar">Consultar</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="software" class="subpagina">
+            <h1>💾 Software</h1>
+            <div class="grid-servicios">
+                <div class="item-card">
+                    <h3>Pack Office</h3>
+                    <a href="https://wa.me/1169689385?text=Consulta%20por%20Office" class="btn-consultar">Consultar</a>
+                </div>
+                <div class="item-card">
+                    <h3>Limpieza de Sistema</h3>
+                    <a href="https://wa.me/1169689385?text=Consulta%20por%20Limpieza" class="btn-consultar">Consultar</a>
                 </div>
             </div>
         </div>
 
         <div id="remoto" class="subpagina">
-            <h1 style="border-bottom: 2px solid var(--neon); padding-bottom: 10px;">🔧 Soporte Remoto</h1>
-            <p>Apps que sirven para el Acceso Remoto.</p>
+            <h1>🔧 Remoto</h1>
             <div class="grid-servicios">
                 <div class="item-card">
                     <img src="anydesk.png" alt="AnyDesk">
                     <h3>AnyDesk</h3>
-                    <p>Bajalo para soporte remoto inmediato.</p>
-                    <div class="price">GRATUITO</div>
-                    <a href="https://download.anydesk.com/AnyDesk.exe" class="btn-accion">Descargar EXE</a>
+                    <a href="https://download.anydesk.com/AnyDesk.exe" class="btn-consultar">Descargar EXE</a>
                 </div>
                 <div class="item-card">
                     <img src="winrar.png" alt="WinRAR">
                     <h3>WinRAR</h3>
-                    <p>Para abrir los archivos comprimidos.</p>
-                    <div class="price">GRATUITO</div>
-                    <a href="https://dw.uptodown.net/dwn/Vvj3PGkn-dHQ8TbdOdQ3vah2hKt8rLSiXpt7z2f1QIkCYpD8aaV5qrTnc_RtgpknPedCESrEtFGAIYm5CYW-XfJQY50zcFy6uMW_OtAWSrFoJhvw7PuY13fB9SBf9CMQ/S_l-s6tXklk6uGf3nUBn1iqNIQQILRSg9tzN9ghwi346Ud8Dwt_uXkBno-wlG7QOc1la-Yl3CALQRfYqjBylFjR1WC9gQXadcGwCedMobuZNdsspeRKNFsfyGS70DNI5/hlgODoFcB8WCE6j7xIoQQkkRoq3PbUxmURBKnUC_3jRFJZ1eTtOMH_8Ye1HOaQtG/winrar-7-20-0.exe" class="btn-accion">Descargar EXE</a>
-                </div>
-            </div>
-        </div>
-
-        <div id="juegos" class="subpagina">
-            <h1>🎮 Catálogo de Juegos</h1>
-            <div class="grid-servicios">
-                <div class="item-card">
-                    <h3>GTA 5</h3>
-                    <p>Instalación y optimización profunda.</p>
-                    <div class="price">ARS 6.500,00</div>
-                    <a href="https://wa.me/1169689385?text=Hola!%20Quiero%20el%20GTA%205" class="btn-accion">Pedir Ahora</a>
+                    <a href="https://www.win-rar.com/postdownload.html?&L=6" class="btn-consultar">Descargar EXE</a>
                 </div>
             </div>
         </div>
@@ -277,5 +253,3 @@
     </script>
 </body>
 </html>
-
-
