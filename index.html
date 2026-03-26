@@ -29,6 +29,7 @@
             overflow-x: hidden;
         }
 
+        /* Scanline effect */
         body::after {
             content: '';
             position: fixed; inset: 0;
@@ -37,7 +38,7 @@
             z-index: 9999;
         }
 
-        /* ═══════════════ TOP NAVBAR ═══════════════ */
+        /* TOP NAVBAR */
         .topnav {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -51,17 +52,6 @@
             z-index: 500;
         }
 
-        .topnav::before, .topnav::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            width: 80px; height: 2px;
-            background: var(--neon);
-            box-shadow: var(--neon-glow);
-        }
-        .topnav::before { left: 0; }
-        .topnav::after  { right: 0; }
-
         .nav-logo {
             font-family: 'Orbitron', monospace;
             font-size: 1.2rem;
@@ -70,706 +60,264 @@
             letter-spacing: 4px;
             text-shadow: var(--neon-glow);
             margin-right: 40px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
-        .nav-logo::before {
-            content: '';
-            width: 8px; height: 8px;
-            background: var(--neon);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--neon);
-            animation: pulse-dot 2s ease-in-out infinite;
-            flex-shrink: 0;
-        }
-
-        @keyframes pulse-dot {
-            0%,100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.7); opacity: 0.4; }
-        }
-
-        .nav-sep {
-            width: 1px; height: 28px;
-            background: var(--border);
-            margin-right: 32px;
-            flex-shrink: 0;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex: 1;
-        }
+        .nav-links { display: flex; align-items: center; gap: 4px; flex: 1; }
 
         .nav-btn {
-            background: transparent;
-            border: 1px solid transparent;
-            color: #666;
-            padding: 8px 20px;
-            cursor: pointer;
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 700;
-            font-size: 0.88rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: all 0.2s;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            white-space: nowrap;
+            background: transparent; border: 1px solid transparent;
+            color: #666; padding: 8px 15px; cursor: pointer;
+            font-family: 'Rajdhani', sans-serif; font-weight: 700;
+            font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;
+            transition: all 0.2s; border-radius: 6px;
         }
 
-        .nav-btn:hover {
-            color: var(--neon);
-            border-color: var(--border);
-            background: var(--neon-dim);
+        .nav-btn:hover, .nav-btn.active { color: var(--neon); background: var(--neon-dim); border-color: var(--border); }
+
+        /* Login Escondido */
+        .admin-trigger {
+            position: absolute; top: 2px; right: 2px;
+            font-size: 0.5rem; color: #111; cursor: pointer;
+            user-select: none; z-index: 1000;
         }
 
-        .nav-btn.active {
-            color: #000;
-            background: var(--neon);
-            border-color: var(--neon);
-            box-shadow: 0 0 16px rgba(204,255,0,0.3);
-        }
-
-        .nav-wa {
-            margin-left: auto;
-            background: rgba(37,211,102,0.08);
-            border: 1px solid rgba(37,211,102,0.3);
-            color: #25d366;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 700;
-            font-size: 0.82rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            transition: all 0.2s;
-            flex-shrink: 0;
-        }
-
-        .nav-wa:hover {
-            background: rgba(37,211,102,0.18);
-            box-shadow: 0 0 14px rgba(37,211,102,0.25);
-        }
-
-        /* ═══════════════ MOBILE BOTTOM NAV ═══════════════ */
-        .mobile-nav {
-            display: none;
-            position: fixed;
-            bottom: 0; left: 0; right: 0;
-            height: 62px;
-            background: rgba(5,5,5,0.98);
-            border-top: 1px solid var(--border);
-            z-index: 500;
-        }
-
-        .mobile-nav-inner {
-            display: flex;
-            height: 100%;
-            align-items: center;
-            justify-content: space-around;
-        }
-
-        .mob-btn {
-            background: transparent;
-            border: none;
-            color: #4a4a4a;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 3px;
-            cursor: pointer;
-            padding: 6px 14px;
-            border-radius: 8px;
-            transition: all 0.2s;
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 700;
-            font-size: 0.62rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .mob-icon { font-size: 1.3rem; line-height: 1; }
-
-        .mob-btn.active {
-            color: var(--neon);
-            background: var(--neon-dim);
-        }
-
-        /* ═══════════════ MAIN ═══════════════ */
-        main {
-            padding-top: var(--nav-h);
-            min-height: 100vh;
-        }
-
-        .subpagina { display: none; }
+        /* MAIN CONTENT */
+        main { padding-top: var(--nav-h); min-height: 100vh; }
+        .subpagina { display: none; animation: fadeIn 0.4s ease; }
         .subpagina.active { display: block; }
 
-        /* ═══════════════ HERO ═══════════════ */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* HERO SECTION */
         .inicio-hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: calc(100vh - var(--nav-h));
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            padding: 40px 20px;
-        }
-
-        .inicio-hero::before {
-            content: '';
-            position: absolute; inset: 0;
-            background-image:
-                linear-gradient(rgba(204,255,0,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(204,255,0,0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
-        }
-
-        .hero-ring {
-            position: absolute;
-            border-radius: 50%;
-            border: 1px solid rgba(204,255,0,0.06);
-            animation: spin 25s linear infinite;
-        }
-
-        .hero-ring::before {
-            content: '';
-            position: absolute;
-            top: -3px; left: 50%;
-            transform: translateX(-50%);
-            width: 5px; height: 5px;
-            background: var(--neon);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon);
-        }
-
-        .r1 { width: 300px; height: 300px; animation-duration: 20s; }
-        .r2 { width: 480px; height: 480px; animation-duration: 35s; animation-direction: reverse; border-color: rgba(204,255,0,0.04); }
-        .r3 { width: 650px; height: 650px; animation-duration: 50s; border-color: rgba(204,255,0,0.025); }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .hero-content { position: relative; z-index: 1; }
-
-        .hero-eyebrow {
-            font-size: 0.7rem;
-            letter-spacing: 6px;
-            color: var(--neon);
-            text-transform: uppercase;
-            margin-bottom: 16px;
-            opacity: 0;
-            animation: fadeUp 0.5s 0.2s forwards;
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; min-height: calc(100vh - var(--nav-h));
+            text-align: center; position: relative; overflow: hidden;
         }
 
         .hero-title {
             font-family: 'Orbitron', monospace;
-            font-size: clamp(3.5rem, 10vw, 8rem);
-            font-weight: 900;
-            color: var(--neon);
-            text-shadow: var(--neon-glow);
-            line-height: 0.9;
-            margin-bottom: 24px;
-            opacity: 0;
-            animation: dropIn 0.9s 0.05s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            font-size: clamp(3rem, 10vw, 6rem);
+            color: var(--neon); text-shadow: var(--neon-glow);
+            line-height: 0.9; margin-bottom: 20px;
         }
 
-        .hero-sub {
-            font-size: clamp(0.85rem, 2vw, 1.05rem);
-            color: #666;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 48px;
-            opacity: 0;
-            animation: fadeUp 0.5s 0.6s forwards;
+        /* FORMULARIO DIAGNOSTICO */
+        .form-container {
+            max-width: 500px; margin: 40px auto;
+            background: var(--glass); border: 1px solid var(--border);
+            padding: 30px; border-radius: 15px;
         }
 
-        .hero-stats {
-            display: flex;
-            gap: 0;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            animation: fadeUp 0.5s 0.9s forwards;
+        input, textarea {
+            width: 100%; padding: 12px; margin-bottom: 15px;
+            background: #111; border: 1px solid var(--border);
+            color: white; border-radius: 6px; font-family: 'Rajdhani';
         }
 
-        .stat { text-align: center; padding: 0 32px; }
-
-        .stat-num {
-            font-family: 'Orbitron', monospace;
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--neon);
-            line-height: 1;
+        /* TABLA ADMIN */
+        .admin-table {
+            width: 100%; border-collapse: collapse; margin-top: 20px;
+            background: var(--glass); border-radius: 8px; overflow: hidden;
         }
+        .admin-table th { background: var(--neon); color: black; padding: 12px; text-align: left; }
+        .admin-table td { padding: 12px; border-bottom: 1px solid var(--border); }
 
-        .stat-label {
-            font-size: 0.62rem;
-            letter-spacing: 3px;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            margin-top: 4px;
-        }
-
-        .stat-div {
-            width: 1px; height: 36px;
-            background: var(--border);
-        }
-
-        @keyframes dropIn {
-            0%   { transform: translateY(-60px) scale(0.95); opacity: 0; }
-            100% { transform: translateY(0) scale(1); opacity: 1; }
-        }
-        @keyframes fadeUp {
-            0%   { transform: translateY(16px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
-        /* ═══════════════ PAGE WRAP ═══════════════ */
-        .page-wrap {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 48px 40px 80px;
-        }
-
-        .page-header {
-            display: flex;
-            align-items: flex-end;
-            gap: 16px;
-            margin-bottom: 36px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .page-header h1 {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(1.5rem, 4vw, 2.2rem);
-            font-weight: 900;
-            color: var(--neon);
-            letter-spacing: 2px;
-            line-height: 1;
-        }
-
-        .page-badge {
-            font-size: 0.68rem;
-            letter-spacing: 2px;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            margin-left: auto;
-            padding: 5px 12px;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-        }
-
-        /* ═══════════════ GRID & CARDS ═══════════════ */
-        .grid-servicios {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .item-card {
-            background: var(--glass);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.25s;
-        }
-
-        .item-card:hover {
-            border-color: rgba(204,255,0,0.45);
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(204,255,0,0.07);
-        }
-
-        .card-img {
-            position: relative;
-            height: 155px;
-            background: #0f0f0f;
-            overflow: hidden;
-        }
-
-        .card-img img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s;
-            display: block;
-        }
-
-        .item-card:hover .card-img img { transform: scale(1.06); }
-
-        .card-img::after {
-            content: '';
-            position: absolute; inset: 0;
-            background: linear-gradient(to top, rgba(8,8,8,0.55) 0%, transparent 60%);
-        }
-
-        .no-img {
-            height: 155px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.2rem;
-            background: linear-gradient(135deg, #0d0d0d 0%, #141414 100%);
-        }
-
-        .card-body { padding: 18px 20px 20px; }
-
-        .card-tag {
-            font-size: 0.62rem;
-            letter-spacing: 2.5px;
-            color: var(--neon);
-            text-transform: uppercase;
-            opacity: 0.6;
-            margin-bottom: 5px;
-        }
-
-        .card-body h3 {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.92rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-
-        .card-body p {
-            font-size: 0.84rem;
-            color: #5a5a5a;
-            line-height: 1.55;
-            margin-bottom: 16px;
-        }
-
+        /* CARDS */
+        .page-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+        .grid-servicios { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+        .item-card { background: var(--glass); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; transition: 0.3s; }
+        .item-card:hover { border-color: var(--neon); transform: translateY(-5px); }
+        
         .btn-primary {
-            display: block;
-            background: var(--neon);
-            color: #000;
-            padding: 11px;
-            text-decoration: none;
-            border-radius: 6px;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.62rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-align: center;
-            transition: all 0.2s;
+            display: block; width: 100%; background: var(--neon); color: black;
+            padding: 12px; text-align: center; text-decoration: none;
+            font-weight: 700; border-radius: 6px; text-transform: uppercase;
+            font-family: 'Orbitron'; font-size: 0.7rem; border: none; cursor: pointer;
         }
 
-        .btn-primary:hover {
-            box-shadow: 0 0 22px rgba(204,255,0,0.4);
-            filter: brightness(1.08);
+        /* MOBILE NAV */
+        .mobile-nav {
+            display: none; position: fixed; bottom: 0; left: 0; right: 0;
+            height: 65px; background: #050505; border-top: 1px solid var(--border);
+            z-index: 500; justify-content: space-around; align-items: center;
         }
 
-        .btn-outline {
-            display: block;
-            background: transparent;
-            color: var(--neon);
-            padding: 11px;
-            text-decoration: none;
-            border: 1px solid rgba(204,255,0,0.35);
-            border-radius: 6px;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.62rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-align: center;
-            transition: all 0.2s;
-        }
-
-        .btn-outline:hover {
-            background: var(--neon-dim);
-            border-color: var(--neon);
-        }
-
-        /* ═══════════════ INFO BOX ═══════════════ */
-        .info-box {
-            background: var(--neon-dim);
-            border: 1px solid var(--border);
-            border-left: 3px solid var(--neon);
-            border-radius: 8px;
-            padding: 18px 22px;
-            margin-bottom: 28px;
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-        }
-
-        .info-box .ib-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
-        .info-box p { font-size: 0.88rem; color: #888; line-height: 1.6; }
-        .info-box strong { color: #ccc; }
-
-        /* ═══════════════ WA FLOAT ═══════════════ */
-        .btn-whatsapp {
-            position: fixed;
-            bottom: 28px; right: 28px;
-            background: var(--whatsapp);
-            color: white;
-            width: 54px; height: 54px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 400;
-            box-shadow: 0 4px 20px rgba(37,211,102,0.4);
-            transition: all 0.25s;
-            text-decoration: none;
-        }
-
-        .btn-whatsapp:hover {
-            transform: scale(1.12);
-            box-shadow: 0 6px 30px rgba(37,211,102,0.6);
-        }
-
-        /* ═══════════════ RESPONSIVE ═══════════════ */
         @media (max-width: 768px) {
-            .topnav { padding: 0 16px; }
-            .nav-sep, .nav-links, .nav-wa { display: none; }
-            .nav-logo { font-size: 1.05rem; letter-spacing: 3px; margin-right: 0; }
-
-            .mobile-nav { display: block; }
-            main { padding-bottom: 62px; }
-            .page-wrap { padding: 28px 16px 20px; }
-
-            .r2, .r3 { display: none; }
-            .hero-title { font-size: 3.2rem; }
-
-            .grid-servicios { grid-template-columns: 1fr 1fr; gap: 12px; }
-            .card-img, .no-img { height: 120px; }
-            .btn-whatsapp { bottom: 74px; }
-        }
-
-        @media (max-width: 420px) {
-            .grid-servicios { grid-template-columns: 1fr; }
-            .hero-stats { flex-wrap: wrap; justify-content: center; gap: 12px; }
-            .stat-div { display: none; }
-            .stat { padding: 0 16px; }
+            .nav-links { display: none; }
+            .mobile-nav { display: flex; }
+            main { padding-bottom: 70px; }
         }
     </style>
 </head>
 <body>
 
-<!-- WA FLOAT -->
-<a href="https://wa.me/1169689385" class="btn-whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp">
-    <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
-        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.941-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.006.332.009c.109.004.253-.041.397.303.144.344.491 1.199.534 1.286.044.087.073.188.014.303-.058.116-.087.188-.173.289l-.26.303c-.087.101-.177.211-.077.385.101.173.448.74.962 1.199.66.588 1.216.769 1.389.855.173.087.274.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.419-.101.824z"/>
-    </svg>
-</a>
+<div class="admin-trigger" onclick="loginAdmin()">Login MartinTech</div>
 
-<!-- TOP NAV -->
 <header class="topnav">
     <div class="nav-logo">MARTINTECH</div>
-    <div class="nav-sep"></div>
     <nav class="nav-links">
-        <button class="nav-btn active" onclick="ver('inicio',this)">⌂ Inicio</button>
-        <button class="nav-btn" onclick="ver('juegos',this)">◈ Juegos</button>
-        <button class="nav-btn" onclick="ver('software',this)">▣ Software</button>
-        <button class="nav-btn" onclick="ver('remoto',this)">◉ Remoto</button>
+        <button class="nav-btn active" onclick="ver('inicio', this)">Inicio</button>
+        <button class="nav-btn" onclick="ver('juegos', this)">Juegos</button>
+        <button class="nav-btn" onclick="ver('software', this)">Software</button>
+        <button class="nav-btn" onclick="ver('remoto', this)">Remoto</button>
+        <button class="nav-btn" onclick="ver('falla', this)" style="color: var(--neon)">¿Qué le pasó al equipo?</button>
     </nav>
-    <a href="https://wa.me/1169689385" class="nav-wa" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.941-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.006.332.009c.109.004.253-.041.397.303.144.344.491 1.199.534 1.286.044.087.073.188.014.303-.058.116-.087.188-.173.289l-.26.303c-.087.101-.177.211-.077.385.101.173.448.74.962 1.199.66.588 1.216.769 1.389.855.173.087.274.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.419-.101.824z"/>
-        </svg>
-        WhatsApp
-    </a>
 </header>
 
-<!-- MOBILE BOTTOM NAV -->
-<nav class="mobile-nav">
-    <div class="mobile-nav-inner">
-        <button class="mob-btn active" onclick="ver('inicio',this,true)">
-            <span class="mob-icon">⌂</span><span>Inicio</span>
-        </button>
-        <button class="mob-btn" onclick="ver('juegos',this,true)">
-            <span class="mob-icon">◈</span><span>Juegos</span>
-        </button>
-        <button class="mob-btn" onclick="ver('software',this,true)">
-            <span class="mob-icon">▣</span><span>Software</span>
-        </button>
-        <button class="mob-btn" onclick="ver('remoto',this,true)">
-            <span class="mob-icon">◉</span><span>Remoto</span>
-        </button>
-    </div>
-</nav>
-
 <main>
-
-    <!-- INICIO -->
-    <div id="inicio" class="subpagina active">
+    <section id="inicio" class="subpagina active">
         <div class="inicio-hero">
-            <div class="hero-ring r1"></div>
-            <div class="hero-ring r2"></div>
-            <div class="hero-ring r3"></div>
-            <div class="hero-content">
-                <p class="hero-eyebrow">Bienvenido a</p>
-                <h1 class="hero-title">MARTIN<br>TECH</h1>
-                <p class="hero-sub">Expertos en optimización digital</p>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <div class="stat-num">4+</div>
-                        <div class="stat-label">Juegos</div>
-                    </div>
-                    <div class="stat-div"></div>
-                    <div class="stat">
-                        <div class="stat-num">100%</div>
-                        <div class="stat-label">Funcional</div>
-                    </div>
-                    <div class="stat-div"></div>
-                    <div class="stat">
-                        <div class="stat-num">24/7</div>
-                        <div class="stat-label">Soporte</div>
-                    </div>
-                </div>
+            <h1 class="hero-title">MARTIN<br>TECH</h1>
+            <p style="letter-spacing: 5px; color: #888;">REPARACIÓN & OPTIMIZACIÓN</p>
+            <div style="margin-top: 30px;">
+                <button class="btn-primary" style="padding: 15px 40px;" onclick="ver('falla')">INICIAR DIAGNÓSTICO</button>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- JUEGOS -->
-    <div id="juegos" class="subpagina">
+    <section id="juegos" class="subpagina">
         <div class="page-wrap">
-            <div class="page-header">
-                <h1>◈ Juegos</h1>
-                <span class="page-badge">4 títulos</span>
-            </div>
+            <h1 style="font-family: 'Orbitron'; color: var(--neon); margin-bottom: 30px;">◈ CATÁLOGO JUEGOS</h1>
             <div class="grid-servicios">
-                <div class="item-card">
-                    <div class="card-img"><img src="gta v.jpg" alt="GTA 5" onerror="this.parentElement.outerHTML='<div class=no-img>🎮</div>'"></div>
-                    <div class="card-body">
-                        <div class="card-tag">Acción · Open World</div>
-                        <h3>GTA 5</h3>
-                        <p>Instalación y optimización completa para máximo rendimiento.</p>
-                        <a href="https://wa.me/1169689385?text=Consulta%20por%20GTA%205" class="btn-primary" target="_blank">Consultar por WhatsApp</a>
-                    </div>
-                </div>
-                <div class="item-card">
-                    <div class="card-img"><img src="minecraf.jpg" alt="Minecraft" onerror="this.parentElement.outerHTML='<div class=no-img>⛏️</div>'"></div>
-                    <div class="card-body">
-                        <div class="card-tag">Sandbox · Survival</div>
-                        <h3>Minecraft Java</h3>
-                        <p>Config con mods, shaders y máximo FPS garantizado.</p>
-                        <a href="https://wa.me/1169689385?text=Consulta%20por%20Minecraft" class="btn-primary" target="_blank">Consultar por WhatsApp</a>
-                    </div>
-                </div>
-                <div class="item-card">
-                    <div class="card-img"><img src="pes 6.jpg" alt="PES 6" onerror="this.parentElement.outerHTML='<div class=no-img>⚽</div>'"></div>
-                    <div class="card-body">
-                        <div class="card-tag">Deporte · Fútbol</div>
-                        <h3>PES 6</h3>
-                        <p>Parches, licencias y escudos actualizados incluidos.</p>
-                        <a href="https://wa.me/1169689385?text=Consulta%20por%20PES%206" class="btn-primary" target="_blank">Consultar por WhatsApp</a>
-                    </div>
-                </div>
-                <div class="item-card">
-                    <div class="card-img"><img src="counter 1.6.jpg" alt="CS 1.6" onerror="this.parentElement.outerHTML='<div class=no-img>🔫</div>'"></div>
-                    <div class="card-body">
-                        <div class="card-tag">FPS · Táctica</div>
-                        <h3>CS 1.6</h3>
-                        <p>Setup clásico con configs pro y servidores listos.</p>
-                        <a href="https://wa.me/1169689385?text=Consulta%20por%20CS%201.6" class="btn-primary" target="_blank">Consultar por WhatsApp</a>
-                    </div>
-                </div>
+                <div class="item-card"><h3>GTA 5</h3><p>Optimizado para bajos recursos.</p></div>
+                <div class="item-card"><h3>Minecraft</h3><p>Con Shaders y Optifine.</p></div>
+                <div class="item-card"><h3>PES 6</h3><p>Parche 2024 actualizado.</p></div>
+                <div class="item-card"><h3>CS 1.6</h3><p>Versión liviana y pro.</p></div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- SOFTWARE -->
-    <div id="software" class="subpagina">
+    <section id="software" class="subpagina">
         <div class="page-wrap">
-            <div class="page-header">
-                <h1>▣ Software</h1>
-                <span class="page-badge">2 servicios</span>
-            </div>
+            <h1 style="font-family: 'Orbitron'; color: var(--neon); margin-bottom: 30px;">▣ SOFTWARE & APPS</h1>
             <div class="grid-servicios">
-                <div class="item-card">
-                    <div class="no-img">📦</div>
-                    <div class="card-body">
-                        <div class="card-tag">Productividad</div>
-                        <h3>Pack Office</h3>
-                        <p>Word, Excel, PowerPoint y más. Activación incluida sin costo extra.</p>
-                        <a href="https://wa.me/1169689385?text=Consulta%20por%20Office" class="btn-primary" target="_blank">Consultar por WhatsApp</a>
-                    </div>
-                </div>
-                <div class="item-card">
-                    <div class="no-img">🧹</div>
-                    <div class="card-body">
-                        <div class="card-tag">Mantenimiento</div>
-                        <h3>Limpieza de Sistema</h3>
-                        <p>Eliminación de basura, optimización de arranque y liberación de RAM.</p>
-                        <a href="https://wa.me/1169689385?text=Consulta%20por%20Limpieza" class="btn-primary" target="_blank">Consultar por WhatsApp</a>
-                    </div>
-                </div>
+                <div class="item-card"><h3>Pack Office</h3><p>Instalación y activación completa.</p></div>
+                <div class="item-card"><h3>Limpieza OS</h3><p>Eliminación de virus y archivos basura.</p></div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- REMOTO -->
-    <div id="remoto" class="subpagina">
+    <section id="remoto" class="subpagina">
         <div class="page-wrap">
-            <div class="page-header">
-                <h1>◉ Remoto</h1>
-            </div>
-            <div class="info-box">
-                <span class="ib-icon">⚡</span>
-                <p><strong>Soporte a distancia:</strong> Descargá la herramienta, mandanos el ID por WhatsApp y en minutos estamos conectados resolviendo tu problema.</p>
-            </div>
-            <div class="grid-servicios">
-                <div class="item-card">
-                    <div class="card-img"><img src="anydesk.png" alt="AnyDesk" onerror="this.parentElement.outerHTML='<div class=no-img>🖥️</div>'"></div>
-                    <div class="card-body">
-                        <div class="card-tag">Control Remoto</div>
-                        <h3>AnyDesk</h3>
-                        <p>Conexión rápida y segura para soporte en tiempo real.</p>
-                        <a href="https://download.anydesk.com/AnyDesk.exe" class="btn-outline">↓ Descargar EXE</a>
-                    </div>
-                </div>
-                <div class="item-card">
-                    <div class="card-img"><img src="winrar.png" alt="WinRAR" onerror="this.parentElement.outerHTML='<div class=no-img>🗜️</div>'"></div>
-                    <div class="card-body">
-                        <div class="card-tag">Compresor</div>
-                        <h3>WinRAR</h3>
-                        <p>Necesario para instalar juegos y software comprimido.</p>
-                        <a href="https://www.win-rar.com/postdownload.html?&L=6" class="btn-outline">↓ Descargar EXE</a>
-                    </div>
-                </div>
+            <h1 style="font-family: 'Orbitron'; color: var(--neon); margin-bottom: 30px;">◉ SOPORTE REMOTO</h1>
+            <div class="item-card" style="max-width: 600px;">
+                <p>Descargá AnyDesk y pasanos tu ID para que lo arreglemos desde acá.</p><br>
+                <a href="https://anydesk.com/es/downloads" class="btn-primary" target="_blank">DESCARGAR ANYDESK</a>
             </div>
         </div>
-    </div>
+    </section>
 
+    <section id="falla" class="subpagina">
+        <div class="page-wrap">
+            <h1 style="font-family: 'Orbitron'; text-align: center; color: var(--neon);">¿QUÉ LE PASÓ AL EQUIPO?</h1>
+            <div class="form-container">
+                <input type="text" id="cliente" placeholder="Tu nombre / Pepito">
+                <textarea id="descripcion" rows="5" placeholder="Contanos el problema detalladamente..."></textarea>
+                <button class="btn-primary" onclick="guardarFalla()">ENVIAR DIAGNÓSTICO</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="admin" class="subpagina">
+        <div class="page-wrap">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1 style="font-family: 'Orbitron'; color: var(--neon);">LISTA DE TRABAJOS</h1>
+                <button onclick="ver('inicio')" style="background: red; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px;">Cerrar</button>
+            </div>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>CLIENTE</th>
+                        <th>FALLA / PROBLEMA</th>
+                        <th>ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-tareas">
+                    </tbody>
+            </table>
+        </div>
+    </section>
 </main>
 
-<script>
-    const topBtns = () => document.querySelectorAll('.nav-btn');
-    const mobBtns = () => document.querySelectorAll('.mob-btn');
+<nav class="mobile-nav">
+    <button class="nav-btn" onclick="ver('inicio', this)">Inicio</button>
+    <button class="nav-btn" onclick="ver('falla', this)">Taller</button>
+</nav>
 
-    function ver(id, btn, isMobile) {
+<script>
+    // Almacenamiento local para que no se borre al refrescar
+    let tareas = JSON.parse(localStorage.getItem('martinTech_tareas')) || [];
+
+    function ver(id, btn) {
+        // Cambiar sección
         document.querySelectorAll('.subpagina').forEach(p => p.classList.remove('active'));
         document.getElementById(id).classList.add('active');
+        
+        // Cambiar estado botones
+        if(btn) {
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+        
+        if(id === 'admin') cargarAdmin();
+        window.scrollTo(0, 0);
+    }
 
-        topBtns().forEach(b => b.classList.remove('active'));
-        mobBtns().forEach(b => b.classList.remove('active'));
+    function guardarFalla() {
+        const cliente = document.getElementById('cliente').value;
+        const desc = document.getElementById('descripcion').value;
 
-        const allTop = [...topBtns()];
-        const allMob = [...mobBtns()];
-        const pages = ['inicio','juegos','software','remoto'];
-        const idx = pages.indexOf(id);
+        if(!cliente || !desc) return alert("Completá todos los campos, crack.");
 
-        if (allTop[idx]) allTop[idx].classList.add('active');
-        if (allMob[idx]) allMob[idx].classList.add('active');
+        const nuevaTarea = {
+            id: Date.now(),
+            cliente: cliente,
+            problema: desc,
+            fecha: new Date().toLocaleDateString()
+        };
 
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        tareas.push(nuevaTarea);
+        localStorage.setItem('martinTech_tareas', JSON.stringify(tareas));
+
+        alert("¡Recibido! El Equipo de MartinTech lo va a revisar.");
+        document.getElementById('cliente').value = "";
+        document.getElementById('descripcion').value = "";
+        ver('inicio');
+    }
+
+    function loginAdmin() {
+        const pin = prompt("PIN DE ACCESO:");
+        if(pin === "1234") { // <--- ACÁ CAMBIÁS TU PIN
+            ver('admin');
+        } else {
+            alert("PIN INCORRECTO.");
+        }
+    }
+
+    function cargarAdmin() {
+        const lista = document.getElementById('lista-tareas');
+        lista.innerHTML = "";
+        
+        tareas.forEach(t => {
+            lista.innerHTML += `
+                <tr>
+                    <td><strong>${t.cliente}</strong><br><small style="color:#555">${t.fecha}</small></td>
+                    <td>${t.problema}</td>
+                    <td><button onclick="borrarTarea(${t.id})" style="background:none; border:none; color:red; cursor:pointer; font-size:1.2rem;">✖</button></td>
+                </tr>
+            `;
+        });
+    }
+
+    function borrarTarea(id) {
+        if(confirm("¿Terminaste este laburo?")) {
+            tareas = tareas.filter(t => t.id !== id);
+            localStorage.setItem('martinTech_tareas', JSON.stringify(tareas));
+            cargarAdmin();
+        }
     }
 </script>
+
 </body>
 </html>
