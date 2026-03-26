@@ -147,7 +147,33 @@
             .mobile-nav { display: none; }
             .grid-servicios { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
             .inicio-hero { min-height: calc(100vh - var(--nav-h)); }
-        }
+        .boton-wa {
+    position: fixed;
+    bottom: 85px; /* Lo ponemos a esta altura para que no tape el menú de abajo */
+    right: 20px;
+    background-color: #25d366;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    z-index: 1000;
+    transition: 0.3s;
+}
+
+.boton-wa:hover {
+    transform: scale(1.1);
+    background-color: #128c7e;
+}
+
+/* En la computadora lo bajamos un poco más */
+@media (min-width: 768px) {
+    .boton-wa {
+        bottom: 30px;
+    }
+
     </style>
 </head>
 <body>
@@ -281,5 +307,8 @@
         }
     }
 </script>
+<a href="https://wa.me/1169689385" class="boton-wa" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="40" height="40" alt="WA">
+</a>
 </body>
 </html>
