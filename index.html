@@ -1,772 +1,1143 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MartinTech | Servicios Informaticos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --neon: #ccff00;
-            --neon-dim: rgba(204, 255, 0, 0.12);
-            --neon-glow: 0 0 20px rgba(204, 255, 0, 0.5), 0 0 50px rgba(204, 255, 0, 0.15);
-            --bg: #080808;
-            --glass: rgba(255,255,255,0.03);
-            --border: rgba(204, 255, 0, 0.2);
-            --text-dim: #555;
-            --whatsapp: #25d366;
-            --nav-h: 70px;
-        }
-
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-
-        body {
-            background: var(--bg);
-            color: white;
-            font-family: 'Rajdhani', sans-serif;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        body::after {
-            content: '';
-            position: fixed; inset: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.025) 3px, rgba(0,0,0,0.025) 4px);
-            pointer-events: none;
-            z-index: 9999;
-        }
-
-        /* ═══════════════ TOP NAVBAR ═══════════════ */
-        .topnav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            height: var(--nav-h);
-            background: rgba(6,6,6,0.95);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            padding: 0 32px;
-            z-index: 500;
-        }
-
-        .topnav::before, .topnav::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            width: 80px; height: 2px;
-            background: var(--neon);
-            box-shadow: var(--neon-glow);
-        }
-        .topnav::before { left: 0; }
-        .topnav::after  { right: 0; }
-
-        .nav-logo {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.2rem;
-            font-weight: 900;
-            color: var(--neon);
-            letter-spacing: 4px;
-            text-shadow: var(--neon-glow);
-            margin-right: 40px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-logo::before {
-            content: '';
-            width: 8px; height: 8px;
-            background: var(--neon);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--neon);
-            animation: pulse-dot 2s ease-in-out infinite;
-            flex-shrink: 0;
-        }
-
-        @keyframes pulse-dot {
-            0%,100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.7); opacity: 0.4; }
-        }
-
-        .nav-sep {
-            width: 1px; height: 28px;
-            background: var(--border);
-            margin-right: 32px;
-            flex-shrink: 0;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex: 1;
-        }
-
-        .nav-btn {
-            background: transparent;
-            border: 1px solid transparent;
-            color: #666;
-            padding: 8px 20px;
-            cursor: pointer;
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 700;
-            font-size: 0.88rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: all 0.2s;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            white-space: nowrap;
-        }
-
-        .nav-btn:hover {
-            color: var(--neon);
-            border-color: var(--border);
-            background: var(--neon-dim);
-        }
-
-        .nav-btn.active {
-            color: #000;
-            background: var(--neon);
-            border-color: var(--neon);
-            box-shadow: 0 0 16px rgba(204,255,0,0.3);
-        }
-
-        .nav-wa {
-            margin-left: auto;
-            background: rgba(37,211,102,0.08);
-            border: 1px solid rgba(37,211,102,0.3);
-            color: #25d366;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 700;
-            font-size: 0.82rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            transition: all 0.2s;
-            flex-shrink: 0;
-        }
-
-        .nav-wa:hover {
-            background: rgba(37,211,102,0.18);
-            box-shadow: 0 0 14px rgba(37,211,102,0.25);
-        }
-
-        /* ═══════════════ MOBILE BOTTOM NAV ═══════════════ */
-        .mobile-nav {
-            display: none;
-            position: fixed;
-            bottom: 0; left: 0; right: 0;
-            height: 62px;
-            background: rgba(5,5,5,0.98);
-            border-top: 1px solid var(--border);
-            z-index: 500;
-        }
-
-        .mobile-nav-inner {
-            display: flex;
-            height: 100%;
-            align-items: center;
-            justify-content: space-around;
-        }
-
-        .mob-btn {
-            background: transparent;
-            border: none;
-            color: #4a4a4a;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 3px;
-            cursor: pointer;
-            padding: 6px 14px;
-            border-radius: 8px;
-            transition: all 0.2s;
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 700;
-            font-size: 0.62rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .mob-icon { font-size: 1.3rem; line-height: 1; }
-
-        .mob-btn.active {
-            color: var(--neon);
-            background: var(--neon-dim);
-        }
-
-        /* ═══════════════ MAIN ═══════════════ */
-        main {
-            padding-top: var(--nav-h);
-            min-height: 100vh;
-        }
-
-        .subpagina { display: none; }
-        .subpagina.active { display: block; }
-
-        /* ═══════════════ HERO ═══════════════ */
-        .inicio-hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: calc(100vh - var(--nav-h));
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            padding: 40px 20px;
-        }
-
-        .inicio-hero::before {
-            content: '';
-            position: absolute; inset: 0;
-            background-image:
-                linear-gradient(rgba(204,255,0,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(204,255,0,0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
-        }
-
-        .hero-ring {
-            position: absolute;
-            border-radius: 50%;
-            border: 1px solid rgba(204,255,0,0.06);
-            animation: spin 25s linear infinite;
-        }
-
-        .hero-ring::before {
-            content: '';
-            position: absolute;
-            top: -3px; left: 50%;
-            transform: translateX(-50%);
-            width: 5px; height: 5px;
-            background: var(--neon);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon);
-        }
-
-        .r1 { width: 300px; height: 300px; animation-duration: 20s; }
-        .r2 { width: 480px; height: 480px; animation-duration: 35s; animation-direction: reverse; border-color: rgba(204,255,0,0.04); }
-        .r3 { width: 650px; height: 650px; animation-duration: 50s; border-color: rgba(204,255,0,0.025); }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .hero-content { position: relative; z-index: 1; }
-
-        .hero-eyebrow {
-            font-size: 1.2rem;
-            letter-spacing: 6px;
-            color: var(--neon);
-            text-transform: uppercase;
-            margin-bottom: 16px;
-            opacity: 0;
-            animation: fadeUp 0.5s 0.2s forwards;
-        }
-
-        .hero-title {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(3.5rem, 10vw, 8rem);
-            font-weight: 900;
-            color: var(--neon);
-            text-shadow: var(--neon-glow);
-            line-height: 0.9;
-            margin-bottom: 24px;
-            opacity: 0;
-            animation: dropIn 0.9s 0.05s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        .hero-sub {
-            font-size: clamp(0.85rem, 2vw, 1.05rem);
-            color: #666;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 48px;
-            opacity: 0;
-            animation: fadeUp 0.5s 0.6s forwards;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 0;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            animation: fadeUp 0.5s 0.9s forwards;
-        }
-
-        .stat { text-align: center; padding: 0 32px; }
-
-        .stat-num {
-            font-family: 'Orbitron', monospace;
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--neon);
-            line-height: 1;
-        }
-
-        .stat-label {
-            font-size: 0.62rem;
-            letter-spacing: 3px;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            margin-top: 4px;
-        }
-
-        .stat-div {
-            width: 1px; height: 36px;
-            background: var(--border);
-        }
-
-        @keyframes dropIn {
-            0%   { transform: translateY(-60px) scale(0.95); opacity: 0; }
-            100% { transform: translateY(0) scale(1); opacity: 1; }
-        }
-        @keyframes fadeUp {
-            0%   { transform: translateY(16px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
-        /* ═══════════════ PAGE WRAP ═══════════════ */
-        .page-wrap {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 48px 40px 80px;
-        }
-
-        .page-header {
-            display: flex;
-            align-items: flex-end;
-            gap: 16px;
-            margin-bottom: 36px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .page-header h1 {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(1.5rem, 4vw, 2.2rem);
-            font-weight: 900;
-            color: var(--neon);
-            letter-spacing: 2px;
-            line-height: 1;
-        }
-
-        .page-badge {
-            font-size: 0.68rem;
-            letter-spacing: 2px;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            margin-left: auto;
-            padding: 5px 12px;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-        }
-
-        /* ═══════════════ GRID & CARDS ═══════════════ */
-        .grid-servicios {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .item-card {
-            background: var(--glass);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.25s;
-        }
-
-        .item-card:hover {
-            border-color: rgba(204,255,0,0.45);
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(204,255,0,0.07);
-        }
-
-        .card-img {
-            position: relative;
-            height: 155px;
-            background: #0f0f0f;
-            overflow: hidden;
-        }
-
-        .card-img img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s;
-            display: block;
-        }
-
-        .item-card:hover .card-img img { transform: scale(1.06); }
-
-        .card-img::after {
-            content: '';
-            position: absolute; inset: 0;
-            background: linear-gradient(to top, rgba(8,8,8,0.55) 0%, transparent 60%);
-        }
-
-        .no-img {
-            height: 155px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.2rem;
-            background: linear-gradient(135deg, #0d0d0d 0%, #141414 100%);
-        }
-
-        .card-body { padding: 18px 20px 20px; }
-
-        .card-tag {
-            font-size: 0.62rem;
-            letter-spacing: 2.5px;
-            color: var(--neon);
-            text-transform: uppercase;
-            opacity: 0.6;
-            margin-bottom: 5px;
-        }
-
-        .card-body h3 {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.92rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-
-        .card-body p {
-            font-size: 0.84rem;
-            color: #5a5a5a;
-            line-height: 1.55;
-            margin-bottom: 16px;
-        }
-
-        .btn-primary {
-            display: block;
-            background: var(--neon);
-            color: #000;
-            padding: 11px;
-            text-decoration: none;
-            border-radius: 6px;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.62rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-align: center;
-            transition: all 0.2s;
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 0 22px rgba(204,255,0,0.4);
-            filter: brightness(1.08);
-        }
-
-        .btn-outline {
-            display: block;
-            background: transparent;
-            color: var(--neon);
-            padding: 11px;
-            text-decoration: none;
-            border: 1px solid rgba(204,255,0,0.35);
-            border-radius: 6px;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.62rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-align: center;
-            transition: all 0.2s;
-        }
-
-        .btn-outline:hover {
-            background: var(--neon-dim);
-            border-color: var(--neon);
-        }
-
-        /* ═══════════════ INFO BOX ═══════════════ */
-        .info-box {
-            background: var(--neon-dim);
-            border: 1px solid var(--border);
-            border-left: 3px solid var(--neon);
-            border-radius: 8px;
-            padding: 18px 22px;
-            margin-bottom: 28px;
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-        }
-
-        .info-box .ib-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
-        .info-box p { font-size: 0.88rem; color: #888; line-height: 1.6; }
-        .info-box strong { color: #ccc; }
-
-        /* ═══════════════ WA FLOAT ═══════════════ */
-        .btn-whatsapp {
-            position: fixed;
-            bottom: 28px; right: 28px;
-            background: var(--whatsapp);
-            color: white;
-            width: 54px; height: 54px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 400;
-            box-shadow: 0 4px 20px rgba(37,211,102,0.4);
-            transition: all 0.25s;
-            text-decoration: none;
-        }
-
-        .btn-whatsapp:hover {
-            transform: scale(1.12);
-            box-shadow: 0 6px 30px rgba(37,211,102,0.6);
-        }
-
-        /* ═══════════════ RESPONSIVE ═══════════════ */
-        @media (max-width: 768px) {
-            .topnav { padding: 0 16px; }
-            .nav-sep, .nav-links, .nav-wa { display: none; }
-            .nav-logo { font-size: 1.05rem; letter-spacing: 3px; margin-right: 0; }
-
-            .mobile-nav { display: block; }
-            main { padding-bottom: 62px; }
-            .page-wrap { padding: 28px 16px 20px; }
-
-            .r2, .r3 { display: none; }
-            .hero-title { font-size: 3.2rem; }
-
-            .grid-servicios { grid-template-columns: 1fr 1fr; gap: 12px; }
-            .card-img, .no-img { height: 120px; }
-            .btn-whatsapp { bottom: 74px; }
-        }
-
-        @media (max-width: 420px) {
-            .grid-servicios { grid-template-columns: 1fr; }
-            .hero-stats { flex-wrap: wrap; justify-content: center; gap: 12px; }
-            .stat-div { display: none; }
-            .stat { padding: 0 16px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NitramTech</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #00ff88;
+    --green-dim: #00cc6a;
+    --green-dark: #00994d;
+    --green-glow: rgba(0,255,136,0.15);
+    --bg: #070d0a;
+    --bg2: #0d1710;
+    --bg3: #111f15;
+    --text: #e0ffe8;
+    --text-dim: #7aaa88;
+    --border: rgba(0,255,136,0.2);
+    --border-bright: rgba(0,255,136,0.5);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Exo 2', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* SCANLINES */
+  body::before {
+    content:'';
+    position:fixed;
+    inset:0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+    pointer-events:none;
+    z-index:9999;
+  }
+
+  /* GRID BG */
+  body::after {
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:
+      linear-gradient(rgba(0,255,136,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,136,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top:0; left:0; right:0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 64px;
+    background: rgba(7,13,10,0.92);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+  }
+  .logo {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 1.4rem;
+    color: var(--green);
+    letter-spacing: 2px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-icon {
+    width: 32px; height: 32px;
+    border: 2px solid var(--green);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .logo-icon::before {
+    content:'';
+    position:absolute;
+    width:100%;height:2px;
+    background: var(--green);
+    top:50%;
+    animation: scan 2s linear infinite;
+  }
+  @keyframes scan { 0%{top:-10%} 100%{top:110%} }
+
+  .nav-links {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--green);
+    border-color: var(--border-bright);
+    background: var(--green-glow);
+  }
+  .nav-links .dropdown { position: relative; }
+  .nav-links .dropdown > a::after { content: ' ▾'; font-size: 10px; }
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 200px;
+    background: var(--bg2);
+    border: 1px solid var(--border-bright);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 999;
+  }
+  .dropdown:hover .dropdown-menu { display: block; }
+  .dropdown-menu a {
+    display: block;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8rem;
+  }
+  .dropdown-menu a:last-child { border-bottom: none; }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: none;
+    flex-direction: column;
+    padding-top: 64px;
+  }
+  section.active { display: flex; }
+
+  /* ===================== HOME ===================== */
+  #home {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 64px 2rem 2rem;
+    gap: 2rem;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border-bright);
+    background: var(--green-glow);
+    border-radius: 99px;
+    padding: 6px 18px;
+    font-size: 0.75rem;
+    color: var(--green);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .hero-badge span { width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 1.2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  .hero-title {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: clamp(2.8rem, 8vw, 6rem);
+    line-height: 1;
+    color: var(--text);
+    letter-spacing: -1px;
+  }
+  .hero-title em { color: var(--green); font-style: normal; }
+  .hero-sub {
+    max-width: 560px;
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .btn-primary {
+    background: var(--green);
+    color: var(--bg);
+    border: none;
+    padding: 14px 36px;
+    border-radius: 4px;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #00ffaa; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,255,136,0.4); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--green);
+    border: 1px solid var(--border-bright);
+    padding: 14px 36px;
+    border-radius: 4px;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-secondary:hover { background: var(--green-glow); transform: translateY(-2px); }
+
+  .stats-row {
+    display: flex;
+    gap: 2.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--green);
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.75rem; color: var(--text-dim); letter-spacing: 1px; margin-top: 4px; text-transform: uppercase; }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    max-width: 900px;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  .feature-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    background: var(--bg2);
+    transition: all 0.3s;
+    text-align: left;
+  }
+  .feature-card:hover { border-color: var(--border-bright); background: var(--bg3); transform: translateY(-4px); }
+  .feature-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+  .feature-card h3 { font-family: 'Orbitron', monospace; font-size: 0.85rem; color: var(--green); margin-bottom: 0.5rem; }
+  .feature-card p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; }
+
+  /* ===================== JUEGOS ===================== */
+  #juegos {
+    padding: 100px 2rem 3rem;
+    align-items: center;
+  }
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .section-tag {
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--green);
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 900;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .section-title em { color: var(--green); font-style: normal; }
+  .section-desc { color: var(--text-dim); font-size: 1rem; max-width: 500px; margin: 0 auto; }
+
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    max-width: 1100px;
+    width: 100%;
+  }
+  .game-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--bg2);
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .game-card:hover { border-color: var(--green); transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,255,136,0.15); }
+  .game-banner {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .game-banner::after {
+    content:'';
+    position:absolute;inset:0;
+    background: linear-gradient(to bottom, transparent 50%, var(--bg2));
+  }
+  .gtav .game-banner { background: linear-gradient(135deg, #1a2a1a, #2a4a2a); }
+  .cs16 .game-banner { background: linear-gradient(135deg, #1a1a2a, #2a2a4a); }
+  .mc .game-banner { background: linear-gradient(135deg, #2a2a1a, #3a3a1a); }
+  .pes .game-banner { background: linear-gradient(135deg, #1a2a2a, #1a3a3a); }
+  .lol .game-banner { background: linear-gradient(135deg, #1a1a3a, #0a0a2a); }
+  .among .game-banner { background: linear-gradient(135deg, #2a1a1a, #3a1a2a); }
+  .game-info { padding: 1rem 1.25rem 1.25rem; }
+  .game-tag {
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .game-name { font-family: 'Orbitron', monospace; font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+  .game-desc { font-size: 0.8rem; color: var(--text-dim); line-height: 1.5; margin-bottom: 1rem; }
+  .game-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .game-pill {
+    font-size: 0.65rem;
+    padding: 3px 10px;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .pill-green { border-color: var(--green-dark); color: var(--green); background: rgba(0,255,136,0.06); }
+  .game-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: var(--green-glow);
+    border: 1px solid var(--border-bright);
+    color: var(--green);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    text-decoration: none;
+  }
+  .game-btn:hover { background: var(--green); color: var(--bg); }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--border-bright);
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 520px;
+    width: 100%;
+    position: relative;
+    animation: modalIn 0.2s ease;
+  }
+  @keyframes modalIn { from{opacity:0;transform:scale(0.95)} to{opacity:1;transform:scale(1)} }
+  .modal-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 1.4rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--green); }
+  .modal-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .modal h2 { font-family: 'Orbitron', monospace; color: var(--green); font-size: 1.2rem; margin-bottom: 0.5rem; }
+  .modal p { color: var(--text-dim); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; }
+  .modal-specs { list-style: none; margin-bottom: 1.5rem; }
+  .modal-specs li {
+    display: flex; justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.85rem;
+  }
+  .modal-specs li:last-child { border-bottom: none; }
+  .modal-specs .spec-label { color: var(--text-dim); }
+  .modal-specs .spec-val { color: var(--text); font-weight: 600; }
+
+  /* ===================== SOPORTE ===================== */
+  #soporte {
+    padding: 100px 2rem 3rem;
+    align-items: center;
+  }
+  .support-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1000px;
+    width: 100%;
+    margin-bottom: 3rem;
+  }
+  .support-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 2rem;
+    background: var(--bg2);
+    transition: all 0.3s;
+    text-align: center;
+  }
+  .support-card:hover { border-color: var(--border-bright); transform: translateY(-4px); }
+  .support-card .s-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .support-card h3 { font-family: 'Orbitron', monospace; font-size: 1rem; color: var(--green); margin-bottom: 0.75rem; }
+  .support-card p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; margin-bottom: 1.25rem; }
+
+  .anydesk-section {
+    max-width: 700px;
+    width: 100%;
+    border: 1px solid var(--green-dark);
+    border-radius: 12px;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, var(--bg2), var(--bg3));
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 3rem;
+  }
+  .anydesk-section::before {
+    content:'';
+    position:absolute;
+    top:-40px;right:-40px;
+    width:200px;height:200px;
+    background: radial-gradient(circle, rgba(0,255,136,0.1), transparent 70%);
+    pointer-events:none;
+  }
+  .anydesk-logo-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 24px;
+    margin-bottom: 1.5rem;
+  }
+  .anydesk-logo-wrap span { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.1rem; color: #e8512a; letter-spacing: 1px; }
+  .anydesk-section h3 { font-family: 'Orbitron', monospace; font-size: 1.3rem; color: var(--text); margin-bottom: 0.75rem; }
+  .anydesk-section p { color: var(--text-dim); font-size: 0.9rem; max-width: 480px; margin: 0 auto 2rem; line-height: 1.7; }
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--green);
+    color: var(--bg);
+    text-decoration: none;
+    padding: 15px 40px;
+    border-radius: 6px;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .download-btn:hover { background: #00ffaa; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,255,136,0.4); }
+  .download-steps {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    text-align: left;
+  }
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    flex: 1;
+    min-width: 140px;
+    max-width: 200px;
+  }
+  .step-num {
+    width: 28px; height: 28px;
+    border: 1px solid var(--green);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.7rem;
+    color: var(--green);
+    flex-shrink: 0;
+  }
+  .step-text { font-size: 0.78rem; color: var(--text-dim); line-height: 1.5; }
+  .step-text strong { display: block; color: var(--text); font-size: 0.8rem; margin-bottom: 2px; }
+
+  /* ===================== CONTACTO ===================== */
+  #contacto {
+    padding: 100px 2rem 3rem;
+    align-items: center;
+  }
+  .contact-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 3rem;
+    max-width: 900px;
+    width: 100%;
+  }
+  @media (max-width: 700px) { .contact-wrap { grid-template-columns: 1fr; } }
+  .contact-info h2 { font-family: 'Orbitron', monospace; font-size: 1.5rem; color: var(--green); margin-bottom: 1rem; }
+  .contact-info p { color: var(--text-dim); font-size: 0.9rem; line-height: 1.7; margin-bottom: 2rem; }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .contact-item:last-child { border-bottom: none; }
+  .c-icon {
+    width: 40px; height: 40px;
+    border: 1px solid var(--border-bright);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    background: var(--green-glow);
+    flex-shrink: 0;
+  }
+  .contact-item .c-label { font-size: 0.75rem; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase; }
+  .contact-item .c-val { font-size: 0.9rem; color: var(--text); font-weight: 600; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim); font-weight: 600; }
+  .form-group input, .form-group textarea, .form-group select {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 16px;
+    color: var(--text);
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border 0.2s;
+  }
+  .form-group select option { background: var(--bg2); }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color: var(--border-bright);
+    background: var(--bg3);
+  }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-submit-btn {
+    background: var(--green);
+    color: var(--bg);
+    border: none;
+    padding: 14px;
+    border-radius: 6px;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 0.5rem;
+  }
+  .form-submit-btn:hover { background: #00ffaa; box-shadow: 0 6px 20px rgba(0,255,136,0.3); }
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    border: 1px solid var(--green-dark);
+    border-radius: 8px;
+    background: var(--green-glow);
+  }
+  .form-success .check { font-size: 2.5rem; margin-bottom: 0.75rem; }
+  .form-success h3 { font-family: 'Orbitron', monospace; color: var(--green); margin-bottom: 0.5rem; }
+  .form-success p { color: var(--text-dim); font-size: 0.85rem; }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg2);
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-logo { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1rem; color: var(--green); letter-spacing: 2px; }
+  footer p { font-size: 0.75rem; color: var(--text-dim); }
+  .footer-status { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--green); }
+  .footer-status span { width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 2s infinite; }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--bg2);
+    border: 1px solid var(--border-bright);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    font-size: 0.85rem;
+    color: var(--text);
+    z-index: 3000;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast-dot { width:8px;height:8px;background:var(--green);border-radius:50%; }
+
+  /* CURSOR */
+  html { cursor: crosshair; }
+  a, button { cursor: pointer; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--green-dark); border-radius: 3px; }
+</style>
 </head>
 <body>
 
-<!-- WA FLOAT -->
-<a href="https://wa.me/1169689385" class="btn-whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp">
-    <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
-        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.941-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.006.332.009c.109.004.253-.041.397.303.144.344.491 1.199.534 1.286.044.087.073.188.014.303-.058.116-.087.188-.173.289l-.26.303c-.087.101-.177.211-.077.385.101.173.448.74.962 1.199.66.588 1.216.769 1.389.855.173.087.274.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.419-.101.824z"/>
-    </svg>
-</a>
-
-<!-- TOP NAV -->
-<header class="topnav">
-    <div class="nav-logo">MARTINTECH</div>
-    <div class="nav-sep"></div>
-    <nav class="nav-links">
-        <button class="nav-btn active" onclick="ver('inicio',this)">⌂ Inicio</button>
-        <button class="nav-btn" onclick="ver('juegos',this)">◈ Juegos</button>
-        <button class="nav-btn" onclick="ver('software',this)">▣ Software</button>
-        <button class="nav-btn" onclick="ver('remoto',this)">◉ Remoto</button>
-    </nav>
-    <a href="https://wa.me/1169689385" class="nav-wa" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.941-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.006.332.009c.109.004.253-.041.397.303.144.344.491 1.199.534 1.286.044.087.073.188.014.303-.058.116-.087.188-.173.289l-.26.303c-.087.101-.177.211-.077.385.101.173.448.74.962 1.199.66.588 1.216.769 1.389.855.173.087.274.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.419-.101.824z"/>
-        </svg>
-        WhatsApp
-    </a>
-</header>
-
-<!-- MOBILE BOTTOM NAV -->
-<nav class="mobile-nav">
-    <div class="mobile-nav-inner">
-        <button class="mob-btn active" onclick="ver('inicio',this,true)">
-            <span class="mob-icon">⌂</span><span>Inicio</span>
-        </button>
-        <button class="mob-btn" onclick="ver('juegos',this,true)">
-            <span class="mob-icon">◈</span><span>Juegos</span>
-        </button>
-        <button class="mob-btn" onclick="ver('software',this,true)">
-            <span class="mob-icon">▣</span><span>Software</span>
-        </button>
-        <button class="mob-btn" onclick="ver('remoto',this,true)">
-            <span class="mob-icon">◉</span><span>Remoto</span>
-        </button>
-    </div>
+<nav>
+  <a href="#" class="logo" onclick="showSection('home')">
+    <img src="nitramtech.png" alt="NitramTech Logo" style="height:42px;width:auto;object-fit:contain;filter:drop-shadow(0 0 6px rgba(0,180,255,0.4));">
+    NitramTech
+  </a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showSection('home')" id="nav-home" class="active">Inicio</a></li>
+    <li><a href="#" onclick="showSection('juegos')" id="nav-juegos">Juegos</a></li>
+    <li class="dropdown">
+      <a href="#" onclick="showSection('soporte')" id="nav-soporte">Soporte</a>
+      <div class="dropdown-menu">
+        <a href="#" onclick="showSection('soporte');scrollTo('anydesk')">⬇️ Descargar AnyDesk</a>
+        <a href="#" onclick="showSection('soporte');scrollTo('ticket')">🎟️ Abrir un ticket</a>
+        <a href="#" onclick="showSection('soporte');scrollTo('guias')">📖 Guías y tutoriales</a>
+      </div>
+    </li>
+    <li><a href="#" onclick="showSection('contacto')" id="nav-contacto">Contáctanos</a></li>
+  </ul>
 </nav>
 
-<main>
+<!-- ============ HOME ============ -->
+<section id="home" class="active">
+  <div class="hero-badge"><span></span> Servicios Tech Online &mdash; Argentina</div>
+  <h1 class="hero-title">Nitram<em>Tech</em></h1>
+  <p class="hero-sub">Tu centro de soporte, juegos optimizados y soluciones tecnológicas. Rápido, confiable y siempre online.</p>
+  <div class="hero-btns">
+    <a href="#" class="btn-primary" onclick="showSection('juegos')">Ver Juegos</a>
+    <a href="#" class="btn-secondary" onclick="showSection('soporte')">Soporte Remoto</a>
+  </div>
+  <div class="stats-row">
+    <div class="stat"><div class="stat-num" id="counter1">0</div><div class="stat-label">Clientes satisfechos</div></div>
+    <div class="stat"><div class="stat-num" id="counter2">0</div><div class="stat-label">Juegos disponibles</div></div>
+    <div class="stat"><div class="stat-num" id="counter3">0</div><div class="stat-label">Soporte 24/7</div></div>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🖥️</div>
+      <h3>Soporte Remoto</h3>
+      <p>Asistencia técnica en tiempo real con AnyDesk. Reparamos tu PC desde donde estés.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎮</div>
+      <h3>Juegos Optimizados</h3>
+      <p>Descargá los mejores títulos con guías de optimización y configuraciones pre-armadas.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Respuesta Rápida</h3>
+      <p>Atendemos tickets en menos de 24 horas. Porque tu tiempo vale.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛡️</div>
+      <h3>100% Confiable</h3>
+      <p>Trabajamos con ética y transparencia. Tu equipo en buenas manos.</p>
+    </div>
+  </div>
+</section>
 
-    <!-- INICIO -->
-    <div id="inicio" class="subpagina active">
-        <div class="inicio-hero">
-            <div class="hero-ring r1"></div>
-            <div class="hero-ring r2"></div>
-            <div class="hero-ring r3"></div>
-            <div class="hero-content">
-                <p class="hero-eyebrow">Bienvenido a</p>
-                <h1 class="hero-title">MARTIN<br>TECH</h1>
-                <p class="hero-sub">Expertos en Reparacion y Optimizacion de PC y juegos</p>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <div class="stat-num">Juegos +</div>
-                        <div class="stat-label">Juegos</div>
-                    </div>
-                    <div class="stat-div"></div>
-                    <div class="stat">
-                        <div class="stat-num">100%</div>
-                        <div class="stat-label">Funcional</div>
-                    </div>
-                    <div class="stat-div"></div>
-                    <div class="stat">
-                        <div class="stat-num">24/7</div>
-                        <div class="stat-label">Soporte</div>
-                    </div>
-                </div>
-            </div>
+<!-- ============ JUEGOS ============ -->
+<section id="juegos">
+  <div class="section-header">
+    <div class="section-tag">// Biblioteca</div>
+    <h2 class="section-title">Juegos <em>disponibles</em></h2>
+    <p class="section-desc">Títulos optimizados para tu PC. Guías de instalación incluidas.</p>
+  </div>
+  <div class="games-grid">
+
+    <div class="game-card gtav" onclick="openModal('gtav')">
+      <div class="game-banner">🌆</div>
+      <div class="game-info">
+        <div class="game-tag">// Acción / Open World</div>
+        <div class="game-name">GTA V — Optimizado</div>
+        <div class="game-desc">Los Santos te espera. Versión pre-optimizada con configs de FPS alto y texturas ajustadas.</div>
+        <div class="game-meta">
+          <span class="game-pill pill-green">HIGH FPS</span>
+          <span class="game-pill">+8GB RAM</span>
+          <span class="game-pill">Win 10/11</span>
         </div>
+        <div class="game-btn">Ver detalles →</div>
+      </div>
     </div>
 
-    <!-- JUEGOS -->
-    <div id="juegos" class="subpagina">
-        <div class="page-wrap">
-            <div class="page-header">
-                <h1>◈ Juegos</h1>
-                <span class="page-badge">4 títulos</span>
-            </div>
-            <div class="grid-servicios">
-                <div class="item-card">
-                    <div class="card-img"><img src="gta v.jpg" alt="GTA 5" onerror="this.parentElement.outerHTML='<div class=no-img>🎮</div>'"></div>
-                    <div class="card-body">
-                        <div class="card-tag">Acción · Open World</div>
-                        <h3>GTA 5</h3>
-                        <p>Instalación y optimización completa para máximo rendimiento.</p>
-                        <a href="https://wa.me/1169689385?text=Consulta%20por%20GTA%205" class="btn-primary" target="_blank">Consultar por WhatsApp</a>
-                    </div>
-                </div>
-                <div class="item-card">
-                    <div class="card-img"><img src="minecraf.jpg" alt="Minecraft" onerror="this.parentElement.outerHTML='<div class=no-img>⛏️</div>'"></div>
-                    <div class="card-body">
-                        <div class="card-tag">Sandbox · Survival</div>
-                        <h3>Minecraft Java</h3>
-                        <p>Config con mods, shaders y máximo FPS garantizado.</p>
-                        <a href="https://wa.me/1169689385?text=Consulta%20por%20Minecraft" class="btn-primary" target="_blank">Consultar por WhatsApp</a>
-                    </div>
-                </div>
-                <div class="item-card">
-                    <div class="card-img"><img src="pes 6.jpg" alt="PES 6" onerror="this.parentElement.outerHTML='<div class=no-img>⚽</div>'"></div>
-                    <div class="card-body">
-                        <div class="card-tag">Deporte · Fútbol</div>
-                        <h3>PES 6</h3>
-                        <p>Parches, licencias y escudos actualizados incluidos.</p>
-                        <a href="https://wa.me/1169689385?text=Consulta%20por%20PES%206" class="btn-primary" target="_blank">Consultar por WhatsApp</a>
-                    </div>
-                </div>
-                <div class="item-card">
-                    <div class="card-img"><img src="counter 1.6.jpg" alt="CS 1.6" onerror="this.parentElement.outerHTML='<div class=no-img>🔫</div>'"></div>
-                    <div class="card-body">
-                        <div class="card-tag">FPS · Táctica</div>
-                        <h3>CS 1.6</h3>
-                        <p>Setup clásico con configs pro y servidores listos.</p>
-                        <a href="https://wa.me/1169689385?text=Consulta%20por%20CS%201.6" class="btn-primary" target="_blank">Consultar por WhatsApp</a>
-                    </div>
-                </div>
-            </div>
+    <div class="game-card cs16" onclick="openModal('cs16')">
+      <div class="game-banner">🔫</div>
+      <div class="game-info">
+        <div class="game-tag">// FPS / Competitivo</div>
+        <div class="game-name">Counter-Strike 1.6</div>
+        <div class="game-desc">El clásico inmortal. Instalación instantánea, corre en cualquier PC, con autoaim desactivado por supuesto.</div>
+        <div class="game-meta">
+          <span class="game-pill pill-green">LIGERO</span>
+          <span class="game-pill">256MB RAM</span>
+          <span class="game-pill">Win XP+</span>
         </div>
+        <div class="game-btn">Ver detalles →</div>
+      </div>
     </div>
 
-    <!-- SOFTWARE -->
-    <div id="software" class="subpagina">
-        <div class="page-wrap">
-            <div class="page-header">
-                <h1>▣ Software</h1>
-                <span class="page-badge">2 servicios</span>
-            </div>
-            <div class="grid-servicios">
-                <div class="item-card">
-                    <div class="no-img">📦</div>
-                    <div class="card-body">
-                        <div class="card-tag">Productividad</div>
-                        <h3>Pack Office</h3>
-                        <p>Word, Excel, PowerPoint y más. Activación incluida sin costo extra.</p>
-                        <a href="https://wa.me/1169689385?text=Consulta%20por%20Office" class="btn-primary" target="_blank">Consultar por WhatsApp</a>
-                    </div>
-                </div>
-                <div class="item-card">
-                    <div class="no-img">🧹</div>
-                    <div class="card-body">
-                        <div class="card-tag">Mantenimiento</div>
-                        <h3>Limpieza de Sistema</h3>
-                        <p>Eliminación de basura, optimización de arranque y liberación de RAM.</p>
-                        <a href="https://wa.me/1169689385?text=Consulta%20por%20Limpieza" class="btn-primary" target="_blank">Consultar por WhatsApp</a>
-                    </div>
-                </div>
-            </div>
+    <div class="game-card mc" onclick="openModal('mc')">
+      <div class="game-banner">🧱</div>
+      <div class="game-info">
+        <div class="game-tag">// Sandbox / Survival</div>
+        <div class="game-name">Minecraft Java</div>
+        <div class="game-desc">Construí, explorá, sobreviví. Incluye OptiFine preinstalado y shaders recomendados.</div>
+        <div class="game-meta">
+          <span class="game-pill pill-green">OPTIFINE</span>
+          <span class="game-pill">+4GB RAM</span>
+          <span class="game-pill">Java 17</span>
         </div>
+        <div class="game-btn">Ver detalles →</div>
+      </div>
     </div>
 
-    <!-- REMOTO -->
-    <div id="remoto" class="subpagina">
-        <div class="page-wrap">
-            <div class="page-header">
-                <h1>◉ Remoto</h1>
-            </div>
-            <div class="info-box">
-                <span class="ib-icon">⚡</span>
-                <p><strong>Soporte a distancia:</strong> Descargá la herramienta, mandanos el ID por WhatsApp y en minutos estamos conectados resolviendo tu problema.</p>
-            </div>
-            <div class="grid-servicios">
-                <div class="item-card">
-                    <div class="card-img"><img src="anydesk.png" alt="AnyDesk" onerror="this.parentElement.outerHTML='<div class=no-img>🖥️</div>'"></div>
-                    <div class="card-body">
-                        <div class="card-tag">Control Remoto</div>
-                        <h3>AnyDesk</h3>
-                        <p>Conexión rápida y segura para soporte en tiempo real.</p>
-                        <a href="https://download.anydesk.com/AnyDesk.exe" class="btn-outline">↓ Descargar EXE</a>
-                    </div>
-                </div>
-                <div class="item-card">
-                    <div class="card-img"><img src="winrar.png" alt="WinRAR" onerror="this.parentElement.outerHTML='<div class=no-img>🗜️</div>'"></div>
-                    <div class="card-body">
-                        <div class="card-tag">Compresor</div>
-                        <h3>WinRAR</h3>
-                        <p>Necesario para instalar juegos y software comprimido.</p>
-                        <a href="https://www.win-rar.com/postdownload.html?&L=6" class="btn-outline">↓ Descargar EXE</a>
-                    </div>
-                </div>
-            </div>
+    <div class="game-card pes" onclick="openModal('pes')">
+      <div class="game-banner">⚽</div>
+      <div class="game-info">
+        <div class="game-tag">// Fútbol / Simulación</div>
+        <div class="game-name">PES 6</div>
+        <div class="game-desc">La versión de culto. Con parche de actualización de planteles 2024 y ligas argentinas incluidas.</div>
+        <div class="game-meta">
+          <span class="game-pill pill-green">PARCHE 2024</span>
+          <span class="game-pill">512MB RAM</span>
+          <span class="game-pill">Win 7+</span>
         </div>
+        <div class="game-btn">Ver detalles →</div>
+      </div>
     </div>
 
-</main>
+    <div class="game-card lol" onclick="openModal('lol')">
+      <div class="game-banner">⚔️</div>
+      <div class="game-info">
+        <div class="game-tag">// MOBA / Estrategia</div>
+        <div class="game-name">League of Legends</div>
+        <div class="game-desc">Guía de instalación y optimización de ping. Tips para mejorar FPS en PCs de gama media/baja.</div>
+        <div class="game-meta">
+          <span class="game-pill pill-green">F2P</span>
+          <span class="game-pill">+4GB RAM</span>
+          <span class="game-pill">Win 10+</span>
+        </div>
+        <div class="game-btn">Ver detalles →</div>
+      </div>
+    </div>
+
+    <div class="game-card among" onclick="openModal('among')">
+      <div class="game-banner">🚀</div>
+      <div class="game-info">
+        <div class="game-tag">// Multijugador / Social</div>
+        <div class="game-name">Among Us</div>
+        <div class="game-desc">El impostores favorito. Perfecto para jugar online con amigos. Muy ligero y divertido.</div>
+        <div class="game-meta">
+          <span class="game-pill pill-green">ONLINE</span>
+          <span class="game-pill">1GB RAM</span>
+          <span class="game-pill">Win 7+</span>
+        </div>
+        <div class="game-btn">Ver detalles →</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ SOPORTE ============ -->
+<section id="soporte">
+  <div class="section-header">
+    <div class="section-tag">// Asistencia técnica</div>
+    <h2 class="section-title">Centro de <em>Soporte</em></h2>
+    <p class="section-desc">Te ayudamos a resolver cualquier problema con tu PC de forma rápida y segura.</p>
+  </div>
+
+  <div id="anydesk" class="anydesk-section">
+    <div class="anydesk-logo-wrap">
+      <span style="font-size:1.5rem">🖥️</span>
+      <span>AnyDesk</span>
+    </div>
+    <h3>Soporte Remoto Inmediato</h3>
+    <p>Descargá AnyDesk, compartinos tu ID y en minutos un técnico de NitramTech puede acceder a tu PC para ayudarte en tiempo real. Seguro, rápido y sin complicaciones.</p>
+    <a href="https://download.anydesk.com/AnyDesk.exe" class="download-btn" download>
+      ⬇️ &nbsp;Descargar AnyDesk para Windows
+    </a>
+    <div class="download-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Descargá</strong>Hacé clic en el botón de arriba para bajar el instalador.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Instalá</strong>Ejecutá el .exe y seguí los pasos de instalación.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>Compartí tu ID</strong>Abrí AnyDesk y mandanos el número de 9 dígitos.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text"><strong>¡Listo!</strong>Te asistimos al instante desde nuestra PC.</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="guias" class="support-grid">
+    <div class="support-card">
+      <div class="s-icon">🎟️</div>
+      <h3>Abrir un Ticket</h3>
+      <p>¿Tenés un problema técnico? Describilo y te respondemos en menos de 24 horas hábiles.</p>
+      <button class="btn-secondary" onclick="showSection('contacto')">Crear ticket →</button>
+    </div>
+    <div class="support-card">
+      <div class="s-icon">📖</div>
+      <h3>Guías Rápidas</h3>
+      <p>Tutoriales para instalar juegos, optimizar Windows, mejorar FPS y más recursos útiles.</p>
+      <button class="btn-secondary" onclick="showToast('Guías disponibles próximamente 📖')">Ver guías →</button>
+    </div>
+    <div class="support-card">
+      <div class="s-icon">💬</div>
+      <h3>Chat en Vivo</h3>
+      <p>Contacto directo con nuestro equipo técnico. Disponible de lunes a sábado, 9 a 21 hs.</p>
+      <button class="btn-secondary" onclick="showToast('Chat próximamente disponible 💬')">Iniciar chat →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACTO ============ -->
+<section id="contacto">
+  <div class="section-header">
+    <div class="section-tag">// Hablemos</div>
+    <h2 class="section-title">Contac<em>tanos</em></h2>
+    <p class="section-desc">Respondemos en menos de 24 hs. No dudes en escribirnos.</p>
+  </div>
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <h2>¿Necesitás ayuda?</h2>
+      <p>Estamos disponibles para resolver tus dudas, brindarte soporte técnico o asesorarte en lo que necesités.</p>
+      <div class="contact-item">
+        <div class="c-icon">📧</div>
+        <div><div class="c-label">Email</div><div class="c-val">contacto@nitramtech.com</div></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">📱</div>
+        <div><div class="c-label">WhatsApp</div><div class="c-val">+54 11 XXXX-XXXX</div></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">📍</div>
+        <div><div class="c-label">Ubicación</div><div class="c-val">Argentina</div></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">🕐</div>
+        <div><div class="c-label">Horario</div><div class="c-val">Lun–Sáb, 9 a 21 hs</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="contact-form" id="contact-form">
+        <div class="form-group">
+          <label>Tu nombre</label>
+          <input type="text" id="fname" placeholder="Ej: Juan Pérez">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="femail" placeholder="tu@email.com">
+        </div>
+        <div class="form-group">
+          <label>Asunto</label>
+          <select id="fsubject">
+            <option value="">— Seleccioná un tema —</option>
+            <option>Soporte técnico remoto</option>
+            <option>Ayuda con instalación de juego</option>
+            <option>Consulta general</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Mensaje</label>
+          <textarea id="fmessage" placeholder="Describí tu consulta o problema..."></textarea>
+        </div>
+        <button class="form-submit-btn" onclick="submitForm()">Enviar mensaje ↗</button>
+      </div>
+      <div class="form-success" id="form-success">
+        <div class="check">✅</div>
+        <h3>¡Mensaje enviado!</h3>
+        <p>Te vamos a responder a la brevedad. Gracias por contactarte con NitramTech.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">NitramTech</div>
+  <p>© 2024 NitramTech — Todos los derechos reservados</p>
+  <div class="footer-status"><span></span> Sistema operativo</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOnBg(event)">
+  <div class="modal" id="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-dot"></div>
+  <span id="toast-msg">Mensaje</span>
+</div>
 
 <script>
-    function ver(id, btn, isMobile) {
-        document.querySelectorAll('.subpagina').forEach(p => p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
+const gameData = {
+  gtav: {
+    icon:'🌆', name:'GTA V — Optimizado', tag:'Acción / Open World',
+    desc:'Grand Theft Auto V con configuraciones pre-optimizadas por NitramTech para sacarle el máximo a tu hardware. Incluye ajustes de FPS alto y texturas balanceadas.',
+    specs:[
+      {l:'Desarrollador',v:'Rockstar Games'},
+      {l:'Año',v:'2013 (PC: 2015)'},
+      {l:'Género',v:'Acción / Mundo Abierto'},
+      {l:'RAM mínima',v:'8 GB'},
+      {l:'GPU mínima',v:'NVIDIA 9800 GT / AMD HD 4870'},
+      {l:'Almacenamiento',v:'~72 GB'},
+      {l:'Sistema',v:'Windows 10 / 11 (64-bit)'},
+      {l:'Optimización NitramTech',v:'✔ Configs FPS alto incluidas'},
+    ]
+  },
+  cs16: {
+    icon:'🔫', name:'Counter-Strike 1.6', tag:'FPS / Competitivo',
+    desc:'El shooter táctico que definió una época. Instalación en segundos, corre en cualquier máquina y sigue siendo jugado por millones en todo el mundo.',
+    specs:[
+      {l:'Desarrollador',v:'Valve / Gearbox'},
+      {l:'Año',v:'2000'},
+      {l:'Género',v:'FPS Táctico'},
+      {l:'RAM mínima',v:'256 MB'},
+      {l:'GPU mínima',v:'Cualquier tarjeta con DirectX 7'},
+      {l:'Almacenamiento',v:'~600 MB'},
+      {l:'Sistema',v:'Windows XP / 7 / 10 / 11'},
+      {l:'Optimización NitramTech',v:'✔ Configs de bajo lag incluidas'},
+    ]
+  },
+  mc: {
+    icon:'🧱', name:'Minecraft Java Edition', tag:'Sandbox / Survival',
+    desc:'El juego más vendido de la historia. Versión con OptiFine preinstalado y shaders BSL recomendados para una experiencia visual y de rendimiento optimal.',
+    specs:[
+      {l:'Desarrollador',v:'Mojang Studios'},
+      {l:'Año',v:'2011'},
+      {l:'Género',v:'Sandbox / Survival / Creativo'},
+      {l:'RAM mínima',v:'4 GB (recomendado 8 GB)'},
+      {l:'Java',v:'Java 17 o superior'},
+      {l:'Almacenamiento',v:'~1 GB (sin mundos)'},
+      {l:'Sistema',v:'Windows 10 / 11'},
+      {l:'Optimización NitramTech',v:'✔ OptiFine + Shaders incluidos'},
+    ]
+  },
+  pes: {
+    icon:'⚽', name:'PES 6', tag:'Fútbol / Simulación',
+    desc:'La joya del fútbol de culto. Con el parche NitramTech 2024 que incluye planteles actualizados, ligas argentinas completas y uniformes de temporada.',
+    specs:[
+      {l:'Desarrollador',v:'Konami'},
+      {l:'Año',v:'2006'},
+      {l:'Género',v:'Simulación de Fútbol'},
+      {l:'RAM mínima',v:'512 MB'},
+      {l:'Almacenamiento',v:'~3 GB'},
+      {l:'Sistema',v:'Windows 7 / 10 / 11'},
+      {l:'Parche incluido',v:'✔ Planteles 2024 + Liga Argentina'},
+    ]
+  },
+  lol: {
+    icon:'⚔️', name:'League of Legends', tag:'MOBA / Estrategia',
+    desc:'El MOBA más popular del mundo. Te brindamos guía de instalación y un archivo de configuración optimizado para PCs de gama media/baja con mejoras de FPS y reducción de ping.',
+    specs:[
+      {l:'Desarrollador',v:'Riot Games'},
+      {l:'Año',v:'2009'},
+      {l:'Género',v:'MOBA'},
+      {l:'RAM mínima',v:'4 GB (recomendado 8 GB)'},
+      {l:'GPU mínima',v:'NVIDIA GeForce 560 / AMD RX 480'},
+      {l:'Almacenamiento',v:'~22 GB'},
+      {l:'Sistema',v:'Windows 10 / 11 (64-bit)'},
+      {l:'Optimización NitramTech',v:'✔ Config FPS + guía de ping'},
+    ]
+  },
+  among: {
+    icon:'🚀', name:'Among Us', tag:'Multijugador / Social',
+    desc:'Encontrá al impostor antes de que te elimine. Perfecto para jugar con amigos en partidas rápidas y divertidas. Muy ligero, ideal para cualquier PC.',
+    specs:[
+      {l:'Desarrollador',v:'Innersloth'},
+      {l:'Año',v:'2018'},
+      {l:'Género',v:'Social / Deducción / Multijugador'},
+      {l:'RAM mínima',v:'1 GB'},
+      {l:'Almacenamiento',v:'~250 MB'},
+      {l:'Sistema',v:'Windows 7 / 10 / 11'},
+      {l:'Optimización NitramTech',v:'✔ Guía multijugador online incluida'},
+    ]
+  }
+};
 
-        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.mob-btn').forEach(b => b.classList.remove('active'));
+function showSection(id) {
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const nav = document.getElementById('nav-' + id);
+  if(nav) nav.classList.add('active');
+  window.scrollTo(0,0);
+  return false;
+}
 
-        const pages = ['inicio','juegos','software','remoto'];
-        const idx = pages.indexOf(id);
-        const allTop = [...document.querySelectorAll('.nav-btn')];
-        const allMob = [...document.querySelectorAll('.mob-btn')];
+function scrollTo(id) {
+  setTimeout(() => {
+    const el = document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 100);
+}
 
-        if (allTop[idx]) allTop[idx].classList.add('active');
-        if (allMob[idx]) allMob[idx].classList.add('active');
+function openModal(key) {
+  const g = gameData[key];
+  if(!g) return;
+  let specsHTML = g.specs.map(s =>
+    `<li><span class="spec-label">${s.l}</span><span class="spec-val">${s.v}</span></li>`
+  ).join('');
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-icon">${g.icon}</div>
+    <h2>${g.name}</h2>
+    <p>${g.desc}</p>
+    <ul class="modal-specs">${specsHTML}</ul>
+    <button class="btn-primary" style="width:100%" onclick="showToast('🎮 Próximamente disponible para descarga directa!')">Solicitar descarga</button>
+  `;
+  document.getElementById('modal-overlay').classList.add('open');
+}
 
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+function closeModalOnBg(e) {
+  if(e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function submitForm() {
+  const name = document.getElementById('fname').value.trim();
+  const email = document.getElementById('femail').value.trim();
+  const subj = document.getElementById('fsubject').value;
+  const msg = document.getElementById('fmessage').value.trim();
+  if(!name || !email || !subj || !msg) {
+    showToast('⚠️ Por favor completá todos los campos');
+    return;
+  }
+  document.getElementById('contact-form').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+  showToast('✅ ¡Mensaje enviado con éxito!');
+}
+
+// Counters
+function animateCounter(id, target, suffix='') {
+  let cur = 0;
+  const step = Math.ceil(target / 60);
+  const el = document.getElementById(id);
+  const interval = setInterval(() => {
+    cur += step;
+    if(cur >= target) { cur = target; clearInterval(interval); }
+    el.textContent = cur + suffix;
+  }, 30);
+}
+setTimeout(() => {
+  animateCounter('counter1', 150, '+');
+  animateCounter('counter2', 6, '');
+  animateCounter('counter3', 24, '/7');
+}, 400);
 </script>
 </body>
 </html>
